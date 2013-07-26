@@ -1,0 +1,65 @@
+div(ng-app='ng-app')
+  div(ng-controller='HomeCtrl')
+    
+    div.row-fluid
+      h3.span3 Ingresa la meta
+        input.span6(type='text')
+    
+    h3 Factores de decisión
+      button.btn.btn-primary(ng-click='addFactor()')
+        i.icon-plus.icon-white
+        |  Factor
+    
+    table.table.table-bordered.table-striped
+      tr
+        th
+        th Factor de Decisión
+      tr(ng-repeat='factor in factors')
+        td {{$index}}
+        td
+          input(type='text',ng-model='factor.description') 
+    
+    
+    h3 Comparación por pares
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factorColumn in factors') {{factorColumn.description}}
+      tr(ng-repeat='factorRow in factors')
+        td {{factorRow.description}}
+        td(ng-repeat='factorColumn in factors')
+          input(type='text', ng-model='pairwise[$parent.$index][$index]')
+    
+    
+    h3 Normalización
+    
+    h4 Fracciones
+    
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factorColumn in factors') {{factorColumn.description}}
+      tr(ng-repeat='factorRow in factors')
+        td {{factorRow.description}}
+        td(ng-repeat='factorColumn in factors') {{pairwisefractions[$parent.$index][$index]}}
+      tr
+        th Suma Columna
+        td(ng-repeat='factorColumn in factors') {{columnSum[$index]}}
+    
+    h4 Normalización
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factorColumn in factors') {{factorColumn.description}}
+        th Peso
+      tr(ng-repeat='factorRow in factors')
+        td {{factorRow.description}}
+        td(ng-repeat='factorColumn in factors') {{pairwisefractions[$parent.$index][$index]/columnSum[$index]}}
+        td {{rowSum[$index]}}
+      tr
+        th Suma Columna
+        td(ng-repeat='factorColumn in factors') {{columnSumUnit[$index]}}
+        td
+      
+    
+    
