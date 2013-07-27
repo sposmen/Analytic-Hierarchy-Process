@@ -1,14 +1,5 @@
 angular.module('partials', [])
 .run(['$templateCache', function($templateCache) {
-  return $templateCache.put('/partials/partial2.html', [
-'',
-'<p>This is the partial for view 2.</p>',
-'<p>',
-'  Showing of \'interpolate\' filter:',
-'  {{ \'Current version is v%VERSION%.\' | interpolate }}',
-'</p>',''].join("\n"));
-}])
-.run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/factors.html', [
 '',
 '<h3>Factores de decisión',
@@ -47,7 +38,7 @@ angular.module('partials', [])
 '    <th ng-repeat="factorColumn in factors">{{factorColumn.description}}</th>',
 '  </tr>',
 '  <tr ng-repeat="factorRow in factors">',
-'    <td>{{factorRow.description}}</td>',
+'    <th>{{factorRow.description}}</th>',
 '    <td ng-repeat="factorColumn in factors">{{pairwisefractions[$parent.$index][$index] | number:2}}</td>',
 '  </tr>',
 '  <tr>',
@@ -73,6 +64,71 @@ angular.module('partials', [])
 '    <td></td>',
 '  </tr>',
 '</table>',''].join("\n"));
+}])
+.run(['$templateCache', function($templateCache) {
+  return $templateCache.put('/partials/home.html', [
+'',
+'<div ng-app="ng-app">',
+'  <div ng-controller="HomeCtrl">',
+'    <div class="row-fluid">',
+'      <h3 class="span3">Ingresa la meta',
+'        <input type="text" ng-model="meta" class="span6">',
+'      </h3>',
+'    </div>',
+'    <div ng-include="\'/partials/factors.html\'"></div>',
+'    <hr>',
+'    <h3>Proyectos/Opciones a evaluar',
+'      <button ng-click="addOption()" class="btn btn-primary"><i class="icon-plus icon-white"></i> Opción</button>',
+'    </h3>',
+'    <table class="table table-bordered table-striped">',
+'      <tr>',
+'        <th></th>',
+'        <th>Proyecto/Opción</th>',
+'      </tr>',
+'      <tr ng-repeat="option in options">',
+'        <td>{{$index+1}}</td>',
+'        <td>',
+'          <input type="text" ng-model="option.description">',
+'        </td>',
+'      </tr>',
+'    </table>',
+'    <div ng-repeat="factor in factors">',
+'      <h3>Comparación de proyectos/opciones por el factor <b>{{factor.description}}</b></h3>',
+'      <div ng-include="\'/partials/options.html\'"></div>',
+'    </div>',
+'    <h2>Resultados</h2>',
+'    <table class="table table-bordered table-striped">',
+'      <tr>',
+'        <td></td>',
+'        <th ng-repeat="factor in factors">{{factor.description}}</th>',
+'        <th>Totales</th>',
+'      </tr>',
+'      <tr>',
+'        <td></td>',
+'        <th ng-repeat="factor in factors">{{rowSum[$index]|number:2}}</th>',
+'        <td></td>',
+'      </tr>',
+'      <tr ng-repeat="option in options">',
+'        <th>{{option.description}}</th>',
+'        <td ng-repeat="factor in factors">{{rowSumOptions[$index][$parent.$index] | number:2}}</td>',
+'        <th>{{optionsScore[$index].score*100 | number:2}}%</th>',
+'      </tr>',
+'    </table>',
+'    <h3>Resumen</h3>',
+'    <p>Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:</p>',
+'    <ol>',
+'      <li ng-repeat="result in optionsScore | orderBy:\'score\':\'true\'"><b>{{result.option.description}}</b>, Score: {{result.score*100|number:2}}%</li>',
+'    </ol>',
+'    <div google-chart chart="\'PieChart\'" style="{{chart.cssStyle}}"></div>',
+'  </div>',
+'</div>',''].join("\n"));
+}])
+.run(['$templateCache', function($templateCache) {
+  return $templateCache.put('/partials/nav.html', [
+'',
+'<ul class="nav">',
+'  <li ng-class="getClass(\'/home\')"><a ng-href="#/home">Home</a></li>',
+'</ul>',''].join("\n"));
 }])
 .run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/options.html', [
@@ -131,43 +187,11 @@ angular.module('partials', [])
 '<p>This is the partial for view 1.</p>',''].join("\n"));
 }])
 .run(['$templateCache', function($templateCache) {
-  return $templateCache.put('/partials/nav.html', [
+  return $templateCache.put('/partials/partial2.html', [
 '',
-'<ul class="nav">',
-'  <li ng-class="getClass(\'/home\')"><a ng-href="#/home">Home</a></li>',
-'</ul>',''].join("\n"));
-}])
-.run(['$templateCache', function($templateCache) {
-  return $templateCache.put('/partials/home.html', [
-'',
-'<div ng-app="ng-app">',
-'  <div ng-controller="HomeCtrl">',
-'    <div class="row-fluid">',
-'      <h3 class="span3">Ingresa la meta',
-'        <input type="text" class="span6">',
-'      </h3>',
-'    </div>',
-'    <div ng-include="\'/partials/factors.html\'"></div>',
-'    <hr>',
-'    <h3>Proyectos/Opciones a evaluar',
-'      <button ng-click="addOption()" class="btn btn-primary"><i class="icon-plus icon-white"></i> Opción</button>',
-'    </h3>',
-'    <table class="table table-bordered table-striped">',
-'      <tr>',
-'        <th></th>',
-'        <th>Proyecto/Opción</th>',
-'      </tr>',
-'      <tr ng-repeat="option in options">',
-'        <td>{{$index+1}}</td>',
-'        <td>',
-'          <input type="text" ng-model="option.description">',
-'        </td>',
-'      </tr>',
-'    </table>',
-'    <div ng-repeat="factor in factors">',
-'      <h3>Comparación de proyectos/opciones por el factor <b>{{factor.description}}</b></h3>',
-'      <div ng-include="\'/partials/options.html\'"></div>',
-'    </div>',
-'  </div>',
-'</div>',''].join("\n"));
+'<p>This is the partial for view 2.</p>',
+'<p>',
+'  Showing of \'interpolate\' filter:',
+'  {{ \'Current version is v%VERSION%.\' | interpolate }}',
+'</p>',''].join("\n"));
 }]);
