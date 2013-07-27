@@ -3,7 +3,7 @@ div(ng-app='ng-app')
     
     div.row-fluid
       h3.span3 Ingresa la meta
-        input.span6(type='text')
+        input.span6(type='text', ng-model="meta")
     
     div(ng-include="'/partials/factors.html'")
     
@@ -27,3 +27,28 @@ div(ng-app='ng-app')
       h3 Comparación de proyectos/opciones por el factor 
         b {{factor.description}}
       div(ng-include="'/partials/options.html'")
+      
+    h2 Resultados
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factor in factors') {{factor.description}}
+        th Totales
+      tr
+        td
+        th(ng-repeat='factor in factors') {{rowSum[$index]|number:2}}
+        td
+      tr(ng-repeat='option in options')
+        th {{option.description}}
+        td(ng-repeat='factor in factors') {{rowSumOptions[$index][$parent.$index] | number:2}}
+        th {{optionsScore[$index].score*100 | number:2}}%
+        
+    h3 Resumen
+    
+    p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:
+    ol
+      li(ng-repeat="result in optionsScore | orderBy:'score':'true'")
+        b {{result.option.description}}
+        | , Score: {{result.score*100|number:2}}%
+        
+    div(google-chart,chart="'PieChart'",style="{{chart.cssStyle}}")

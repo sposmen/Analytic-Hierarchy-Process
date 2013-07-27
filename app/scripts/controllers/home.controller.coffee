@@ -3,6 +3,7 @@ Controllers.controller('HomeCtrl', [
 
 ($scope) ->
   
+  #Initial Factors
   $scope.factors = [
     description:'Sample Factor'
   ]
@@ -39,7 +40,7 @@ Controllers.controller('HomeCtrl', [
     $scope.pair_wise_options.push(([] for option in $scope.options))
     $scope.pair_wise_options_fractions.push(([] for option in $scope.options))
   
-  
+  # Proyects or Options to be evaluated
   $scope.options = [
     description:'Sample Option'
   ]
@@ -73,5 +74,16 @@ Controllers.controller('HomeCtrl', [
   $scope.addOption=()->
     $scope.options.push(description:'New Option')
     ($scope.pair_wise_options[i].push([]) && $scope.pair_wise_options_fractions[i].push([]) ) for factor,i in $scope.factors
+  
+  $scope.optionsScore = []
+  
+  $scope.$watch 'rowSumOptions', ->
+    $scope.optionsScore = []
+    for factor, k in $scope.factors
+      for option, i in $scope.options
+        $scope.optionsScore[i] = {option:option, score:0} if $scope.optionsScore[i] is undefined
+        $scope.optionsScore[i].score = $scope.optionsScore[i].score + ($scope.rowSum[k] * $scope.rowSumOptions[k][i])
+    
+  , true
     
 ])

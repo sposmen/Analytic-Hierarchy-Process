@@ -33,7 +33,7 @@ table.table.table-bordered.table-striped
     td
     th(ng-repeat='factorColumn in factors') {{factorColumn.description}}
   tr(ng-repeat='factorRow in factors')
-    td {{factorRow.description}}
+    th {{factorRow.description}}
     td(ng-repeat='factorColumn in factors') {{pairwisefractions[$parent.$index][$index] | number:2}}
   tr
     th Suma Columna
