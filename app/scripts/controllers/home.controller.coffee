@@ -1,11 +1,16 @@
 Controllers.controller('HomeCtrl', [
   '$scope'
+  '$rootScope'
 
-($scope) ->
+($scope, $rootScope) ->
+  
+  $rootScope.pageTitle = "Analytic Hierarchy Process"
+  
   
   #Initial Factors
   $scope.factors = [
-    description:'Sample Factor'
+    description:''
+    name: 'Sample Factor'
   ]
   
   $scope.pairwise = [[]]
@@ -34,7 +39,7 @@ Controllers.controller('HomeCtrl', [
   , true
     
   $scope.addFactor=()->
-    $scope.factors.push(description:'New Factor')
+    $scope.factors.push(description:'', name:'New Factor')
     $scope.pairwise.push([])
     $scope.pairwisefractions.push([])
     $scope.pair_wise_options.push(([] for option in $scope.options))
@@ -42,7 +47,8 @@ Controllers.controller('HomeCtrl', [
   
   # Proyects or Options to be evaluated
   $scope.options = [
-    description:'Sample Option'
+    description:''
+    name:'Sample Option'
   ]
   
   $scope.pair_wise_options = [[[]]]
@@ -72,7 +78,7 @@ Controllers.controller('HomeCtrl', [
   , true
   
   $scope.addOption=()->
-    $scope.options.push(description:'New Option')
+    $scope.options.push(name:'New Option', description:'')
     ($scope.pair_wise_options[i].push([]) && $scope.pair_wise_options_fractions[i].push([]) ) for factor,i in $scope.factors
   
   $scope.optionsScore = []
@@ -85,5 +91,41 @@ Controllers.controller('HomeCtrl', [
         $scope.optionsScore[i].score = $scope.optionsScore[i].score + ($scope.rowSum[k] * $scope.rowSumOptions[k][i])
     
   , true
+  
+  
+  #File utility
+  
+  $scope.saveFile=()->
+    data =
+      factors:$scope.factors
+      pairwise: $scope.pairwise
+      options: $scope.options
+      pair_wise_options:$scope.pair_wise_options
+    
+    downloadData = $.base64.btoa(JSON.stringify(data));      
+    uriContent = "data:application/octet;filename=AHP.json," + downloadData 
+    newWindow=window.open(uriContent, 'AHP.json');
+  
+  
+  $scope.handleFileSelect = (element)->
+    $scope.selectedFile = element.files[0]
+    if $scope.selectedFile?
+      reader = new FileReader()
+
+      reader.onload = ((file)->
+        (e)->
+          data = JSON.parse $.base64.atob(e.target.result)
+          $scope.factors= data.factors
+          $scope.pairwise= data.pairwise
+          $scope.options= data.options
+          $scope.pair_wise_options=data.pair_wise_options
+      )($scope.selectedFile)
+
+      reader.readAsText $scope.selectedFile
+      $(element).replaceAll($(element).clone())
+    else
+      alert 'Invalid file'
+      
+  $scope.loadData=(data)->
     
 ])

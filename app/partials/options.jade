@@ -2,9 +2,9 @@ h3 Comparación por pares
 table.table.table-bordered.table-striped
   tr
     td
-    th(ng-repeat='factorColumn in options') {{factorColumn.description}}
+    th(ng-repeat='factorColumn in options') {{factorColumn.name}}
   tr(ng-repeat='factorRow in options')
-    td {{factorRow.description}}
+    td {{factorRow.name}}
     td(ng-repeat='factorColumn in options')
       input(type='text', ng-model='pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
 
@@ -16,9 +16,9 @@ h4 Fracciones
 table.table.table-bordered.table-striped
   tr
     td
-    th(ng-repeat='factorColumn in options') {{factorColumn.description}}
+    th(ng-repeat='factorColumn in options') {{factorColumn.name}}
   tr(ng-repeat='factorRow in options')
-    td {{factorRow.description}}
+    td {{factorRow.name}}
     td(ng-repeat='factorColumn in options') {{pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index] | number:2 }}
   tr
     th Suma Columna
@@ -28,10 +28,10 @@ h4 Normalización
 table.table.table-bordered.table-striped
   tr
     td
-    th(ng-repeat='factorColumn in options') {{factorColumn.description}}
+    th(ng-repeat='factorColumn in options') {{factorColumn.name}}
     th Peso
   tr(ng-repeat='factorRow in options')
-    td {{factorRow.description}}
+    td {{factorRow.name}}
     td(ng-repeat='factorColumn in options') {{pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index]/columnSumOptions[$parent.$parent.$index][$index] | number:2 }}
     td {{rowSumOptions[$parent.$parent.$index][$index]*100 | number:2 }}%
   tr

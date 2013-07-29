@@ -16,3 +16,9 @@ angular.module('app.directives', [
   (scope, elm, attrs) ->
     elm.text(version)
 ])
+
+.directive 'clicksTo', ->
+  (scope, element, attrs) ->
+    $(element).on 'click', (e) ->
+      e.preventDefault()
+      $(element).parent().find(attrs.clicksTo).click()
