@@ -56,9 +56,9 @@ div(ng-app='ng-app')
         b {{result.option.name}}
         | , Score: {{result.score*100|number:2}}%
         
-    //-button.btn.import-cvs(clicks-to=".file") Cargar
-    //-input.file(type="file", onchange="angular.element(this).scope().handleFileSelect(this)", ng-show="false")
-    //-button.btn(ng-click='saveFile()') Guardar
+    button.btn.import-cvs(clicks-to=".file") Cargar
+    input.file(type="file", onchange="angular.element(this).scope().handleFileSelect(this)", ng-show="false")
+    button.btn(ng-click='saveFile()') Guardar
     
     
     
