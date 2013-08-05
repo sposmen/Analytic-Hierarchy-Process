@@ -6,6 +6,7 @@ App = angular.module('app', [
   'ngResource'
   'app.controllers'
   'app.directives'
+  'app.models'
   'googlechart.directives'
   'app.filters'
   'app.services'
