@@ -8,13 +8,10 @@ h3 Factores de decisión
     tr
       th
       th Nombre
-      th Descripción
     tr(ng-repeat='factor in factors')
       td {{$index+1}}
       td
         input(type='text',ng-model='factor.name')
-      td
-        input(type='text',ng-model='factor.description') 
 
 
 h3 Comparación por pares
