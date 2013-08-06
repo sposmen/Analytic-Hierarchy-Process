@@ -11,6 +11,7 @@ App = angular.module('app', [
   'app.filters'
   'app.services'
   'partials'
+  'ui.bootstrap'
 ])
 
 App.config([

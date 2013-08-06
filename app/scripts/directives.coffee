@@ -28,6 +28,7 @@ angular.module('app.directives', [
     factors: '=childs'
     options: '=options'
     parent: '=parent'
+    level: '=level'
   transclude: true
   controller: 'FactorsCtrl'
   templateUrl: '/partials/factors.html'

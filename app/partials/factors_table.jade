@@ -61,11 +61,7 @@ div
         th Suma Columna
         td(ng-repeat='factorColumn in factors') {{columnSumUnit[$index] | number:2}}
         td
-  
-  .accordion(ng-init="hashacid=Math.floor((Math.random()*10000)+1)", id="accordion{{hashacid}}")
-    .accordion-group(ng-repeat="factor in factors", ng-show="factor.hasChilds()", ng-init="hashid=Math.floor((Math.random()*10000)+1)")
-      .accordion-heading
-        a.accordion-toggle(data-toggle="collapse", data-parent="#accordion{{hashacid}}", href="#collapse{{hashid}}") Análisis de Subfactores para {{factor.name}}
-      .accordion-body.collapse.in(id="collapse{{hashid}}")
-        .accordion-inner
-          factors(childs="factor.childs", options="options", parent="factor")
+        
+  accordion
+    accordion-group(ng-repeat="factor in factors", heading="Análisis de Subfactores para {{factor.name}}", ng-show="factor.childs.length > 0")
+      factors(childs="factor.childs", options="options", parent="factor", level="level+1")
