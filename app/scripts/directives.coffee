@@ -12,7 +12,6 @@ angular.module('app.directives', [
   'version'
 
 (version) ->
-
   (scope, elm, attrs) ->
     elm.text(version)
 ])
@@ -22,3 +21,13 @@ angular.module('app.directives', [
     $(element).on 'click', (e) ->
       e.preventDefault()
       $(element).parent().find(attrs.clicksTo).click()
+
+.directive 'factors', ->
+  restrict: 'E'
+  scope: 
+    factors: '=childs'
+    options: '=options'
+  transclude: true
+  controller: 'FactorsCtrl'
+  templateUrl: '/partials/factors.html'
+  replace: true

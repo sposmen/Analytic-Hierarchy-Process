@@ -5,8 +5,6 @@ angular.module('app.models', [])
     
     constructor: (parent)->
       @parent = parent || null
-      @name = 'Sample Factor'
-      @description = 'This is my description'
       @childs = []
       
     getChilds:->
@@ -15,11 +13,14 @@ angular.module('app.models', [])
     getChild:(index)->
       @childs[index] || false
       
-    addChild:(factor)->
-      @childs.push factor
+    addChild:()->
+      @childs.push(new Factor(@))
       
     removeChild:(index)->
       @childs.splice(index, 1);
       
     hasChilds:->
       !!@childs.length
+      
+    isParent:->
+      !!parent || true

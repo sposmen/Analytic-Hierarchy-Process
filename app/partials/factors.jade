@@ -1,59 +1,55 @@
-h3 Factores de decisión
-  button.btn.btn-primary(ng-click='addFactor()')
-    i.icon-plus.icon-white
-    |  Factor
-
-.row-fluid
-  table.table.table-bordered.table-striped
-    tr
-      th
-      th Nombre
-    tr(ng-repeat='factor in factors')
-      td {{$index+1}}
-      td
-        input(type='text',ng-model='factor.name')
-
-
-h3 Comparación por pares
-.row-fluid
-  table.table.table-bordered.table-striped
-    tr
-      td
-      th(ng-repeat='factorColumn in factors') {{factorColumn.name}}
-    tr(ng-repeat='factorRow in factors')
-      td {{factorRow.name}}
-      td(ng-repeat='factorColumn in factors')
-        input(type='text', ng-model='pairwise[$parent.$index][$index]')
-
-
-h3 Normalización
-
-h4 Fracciones
-
-.row-fluid
-  table.table.table-bordered.table-striped
-    tr
-      td
-      th(ng-repeat='factorColumn in factors') {{factorColumn.name}}
-    tr(ng-repeat='factorRow in factors')
-      th {{factorRow.name}}
-      td(ng-repeat='factorColumn in factors') {{pairwisefractions[$parent.$index][$index] | number:2}}
-    tr
-      th Suma Columna
-      td(ng-repeat='factorColumn in factors') {{columnSum[$index] | number:2}}
-
-h4 Normalización
-.row-fluid
-  table.table.table-bordered.table-striped
-    tr
-      td
-      th(ng-repeat='factorColumn in factors') {{factorColumn.name}}
-      th Peso
-    tr(ng-repeat='factorRow in factors')
-      td {{factorRow.name}}
-      td(ng-repeat='factorColumn in factors') {{pairwisefractions[$parent.$index][$index]/columnSum[$index]  | number:2}}
-      td {{rowSum[$index]*100 | number:2}}%
-    tr
-      th Suma Columna
-      td(ng-repeat='factorColumn in factors') {{columnSumUnit[$index] | number:2}}
-      td
+div
+  div.row-fluid
+    h3.span3 Ingresa la meta
+      input.input-xxlarge(type="text", ng-model="meta")
+  
+  div(ng-include="'/partials/factors_table.html'")
+  
+  hr
+  
+  h3 Proyectos/Opciones a evaluar
+    button.btn.btn-primary(ng-click='addOption()')
+      i.icon-plus.icon-white
+      |  Opción
+  
+  .row-fluid
+    table.table.table-bordered.table-striped
+      tr
+        th
+        th Nombre
+      tr(ng-repeat='option in options')
+        td {{$index+1}}
+        td
+          input(type='text',ng-model='option.name')
+        
+  div(ng-repeat="factor in factors")
+    h3 Comparación de proyectos/opciones por el factor 
+      b {{factor.name}}
+    div(ng-include="'/partials/options.html'")
+    
+  h2 Resultados
+  .row-fluid
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factor in factors') {{factor.name}}
+        th Totales
+      tr
+        td
+        th(ng-repeat='factor in factors') {{rowSum[$index]|number:2}}
+        td
+      tr(ng-repeat='option in options')
+        th {{option.name}}
+        td(ng-repeat='factor in factors') {{rowSumOptions[$index][$parent.$index] | number:2}}
+        th {{optionsScore[$index].score*100 | number:2}}%
+        
+  h3 Resumen Parcial
+  
+  p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:
+  ol
+    li(ng-repeat="result in optionsScore | orderBy:'score':'true'")
+      b {{result.option.name}}
+      | , Score: {{result.score*100|number:2}}%
+      
+  
+  

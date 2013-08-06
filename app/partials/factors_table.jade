@@ -1,0 +1,68 @@
+div
+  h3 Factores de decisión
+    button.btn.btn-primary(ng-click='addFactor()')
+      i.icon-plus.icon-white
+      |  Factor
+  
+  .row-fluid(ng-show="factors.length > 0")
+    table.table.table-bordered.table-striped
+      tr
+        th
+        th Nombre
+      tr(ng-repeat='factor in factors')
+        td {{$index+1}}
+        td
+          input(type='text',ng-model='factor.name')
+          button.btn.btn-primary(ng-click='factor.addChild()', ng-hide="factor.hasChilds()")
+            i.icon-plus.icon-white
+            |  Subfactors
+  
+  
+  h3 Comparación por pares
+  .row-fluid
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factorColumn in factors') {{factorColumn.name}}
+      tr(ng-repeat='factorRow in factors')
+        td {{factorRow.name}}
+        td(ng-repeat='factorColumn in factors')
+          input(type='text', ng-model='pairwise[$parent.$index][$index]')
+  
+  
+  h3 Normalización
+  
+  h4 Fracciones
+  
+  .row-fluid
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factorColumn in factors') {{factorColumn.name}}
+      tr(ng-repeat='factorRow in factors')
+        th {{factorRow.name}}
+        td(ng-repeat='factorColumn in factors') {{pairwisefractions[$parent.$index][$index] | number:2}}
+      tr
+        th Suma Columna
+        td(ng-repeat='factorColumn in factors') {{columnSum[$index] | number:2}}
+  
+  h4 Normalización
+  .row-fluid
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factorColumn in factors') {{factorColumn.name}}
+        th Peso
+      tr(ng-repeat='factorRow in factors')
+        td {{factorRow.name}}
+        td(ng-repeat='factorColumn in factors') {{pairwisefractions[$parent.$index][$index]/columnSum[$index]  | number:2}}
+        td {{rowSum[$index]*100 | number:2}}%
+      tr
+        th Suma Columna
+        td(ng-repeat='factorColumn in factors') {{columnSumUnit[$index] | number:2}}
+        td
+  
+  div(ng-repeat="factor in factors", ng-show="factor.hasChilds()")
+    h3 Análisis de Subfactores para {{factor.name}}
+    factors(childs="factor.childs", options="options")
+    
