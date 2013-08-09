@@ -30,11 +30,14 @@ table.table.table-bordered.table-striped
     td
     th(ng-repeat='factorColumn in options') {{factorColumn.name}}
     th Peso
+    th(ng-show="parentFactor.parent") Peso Relativo
   tr(ng-repeat='factorRow in options')
     td {{factorRow.name}}
     td(ng-repeat='factorColumn in options') {{parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index]/parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2 }}
     td {{parentFactor.rowSumOptions[$parent.$parent.$index][$index]*100 | number:2 }}%
+    td(ng-show="parentFactor.parent") {{parentFactor.rowSumOptions[$index]*parentFactor.parent.rowSumOptions[parentFactor.parent.childs.indexOf(parentFactor)]*100 | number:2}}%
   tr
     th Suma Columna
     td(ng-repeat='factorColumn in options') {{parentFactor.columnSumUnitOptions[$parent.$parent.$index][$index] | number:2 }}
     td
+    td(ng-show="parentFactor.parent")
