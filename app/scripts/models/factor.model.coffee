@@ -11,14 +11,23 @@ angular.module('app.models', [])
       @columnSum = []
       @columnSumUnit = []
       @rowSum = []
-      @pair_wise_options = [[[]]]
-      @pair_wise_options_fractions = [[[]]]
-      @columnSumOptions = [[]]
-      @columnSumUnitOptions = [[]]
-      @rowSumOptions = [[]]
-      @optionsScore = []
+      @pair_wise_options = if !!@parent then @cloneMatrix(@parent.pair_wise_options) else [[[]]]
+      @pair_wise_options_fractions = if !!@parent then @cloneMatrix(@parent.pair_wise_options_fractions) else [[[]]]
+      @columnSumOptions = if !!@parent then @cloneMatrix(@parent.columnSumOptions) else  [[]]
+      @columnSumUnitOptions = if !!@parent then @cloneMatrix(@parent.columnSumUnitOptions) else [[]]
+      @rowSumOptions = if !!@parent then @cloneMatrix(@parent.rowSumOptions) else [[]]
+      @optionsScore = if !!@parent then @cloneMatrix(@parent.optionsScore) else []
       @childs = []
       
+    cloneMatrix:(matrix)->
+      if Object.prototype.toString.call( matrix ) == '[object Array]'
+        result = []
+        for node in matrix
+          result.push @cloneMatrix(node)
+      else
+        result = ''
+      result
+        
     getChilds:->
       @childs
       

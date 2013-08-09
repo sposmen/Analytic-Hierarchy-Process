@@ -32,13 +32,11 @@ Controllers.controller('FactorsCtrl', [
       $scope.parentFactor.rowSum[i] = $scope.parentFactor.rowSum[i]/$scope.factors.length
     
   $scope.addFactor=()->
-    $scope.parentFactor.addChild()
     $scope.parentFactor.pairwise.push([])
     $scope.parentFactor.pairwisefractions.push([])
     $scope.parentFactor.pair_wise_options.push(([] for option in $scope.options))
     $scope.parentFactor.pair_wise_options_fractions.push(([] for option in $scope.options))
-  
-  
+    $scope.parentFactor.addChild(options)
   
   $scope.$watch 'parentFactor.pair_wise_options',->
     pair_wise_optionsChange()
