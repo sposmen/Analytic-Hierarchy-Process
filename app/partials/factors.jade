@@ -7,21 +7,22 @@ div
   
   hr
   
-  h3 Proyectos/Opciones a evaluar
-    button.btn.btn-primary(ng-click='addOption()')
-      i.icon-plus.icon-white
-      |  Opción
-  
-  .row-fluid
-    table.table.table-bordered.table-striped
-      tr
-        th
-        th Nombre
-      tr(ng-repeat='option in options')
-        td {{$index+1}}
-        td
-          input(type='text',ng-model='option.name')
-        
+  .options(ng-hide="!!parentFactor.parent")
+    h3 Proyectos/Opciones a evaluar
+      button.btn.btn-primary(ng-click='addOption()')
+        i.icon-plus.icon-white
+        |  Opción
+    
+    .row-fluid
+      table.table.table-bordered.table-striped
+        tr
+          th
+          th Nombre
+        tr(ng-repeat='option in options')
+          td {{$index+1}}
+          td
+            input(type='text',ng-model='option.name')
+          
   div(ng-repeat="factor in factors")
     h3 Comparación de proyectos/opciones por el factor 
       b {{factor.name}}

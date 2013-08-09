@@ -67,9 +67,13 @@ Controllers.controller('FactorsCtrl', [
           $scope.parentFactor.rowSumOptions[k][i] = $scope.parentFactor.rowSumOptions[k][i] + $scope.parentFactor.pair_wise_options_fractions[k][i][j]/$scope.parentFactor.columnSumOptions[k][j]
         $scope.parentFactor.rowSumOptions[k][i] = $scope.parentFactor.rowSumOptions[k][i]/$scope.options.length
   
+  $scope.$watch 'options', (newValue, oldValue) ->
+    ($scope.parentFactor.pair_wise_options[i].push([]) && $scope.parentFactor.pair_wise_options_fractions[i].push([]) ) for factor,i in $scope.factors
+  , true
+  
   $scope.addOption=()->
     $scope.options.push(name:'New Option', description:'')
-    ($scope.parentFactor.pair_wise_options[i].push([]) && $scope.parentFactor.pair_wise_options_fractions[i].push([]) ) for factor,i in $scope.factors
+    
   
   $scope.$watch 'parentFactor.rowSumOptions', ->
     $scope.parentFactor.optionsScore = []

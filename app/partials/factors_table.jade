@@ -50,14 +50,17 @@ div
         td
         th(ng-repeat='factorColumn in factors') {{parentFactor.factorColumn.name}}
         th Peso
+        th(ng-show="parentFactor.parent") Peso Relativo
       tr(ng-repeat='factorRow in factors')
         td {{factorRow.name}}
         td(ng-repeat='factorColumn in factors') {{parentFactor.pairwisefractions[$parent.$index][$index]/parentFactor.columnSum[$index]  | number:2}}
         td {{parentFactor.rowSum[$index]*100 | number:2}}%
+        td(ng-show="parentFactor.parent") {{parentFactor.rowSum[$index]*parentFactor.parent.rowSum[parentFactor.parent.childs.indexOf(parentFactor)]*100 | number:2}}%
       tr
         th Suma Columna
         td(ng-repeat='factorColumn in factors') {{parentFactor.columnSumUnit[$index] | number:2}}
         td
+        td(ng-show="parentFactor.parent")
 
   accordion
     accordion-group(ng-repeat="factor in factors", heading="Análisis de Subfactores para {{factor.name}}")
