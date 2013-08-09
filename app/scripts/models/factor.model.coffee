@@ -11,23 +11,14 @@ angular.module('app.models', [])
       @columnSum = []
       @columnSumUnit = []
       @rowSum = []
-      @pair_wise_options = if !!@parent then @cloneMatrix(@parent.pair_wise_options) else [[[]]]
-      @pair_wise_options_fractions = if !!@parent then @cloneMatrix(@parent.pair_wise_options_fractions) else [[[]]]
-      @columnSumOptions = if !!@parent then @cloneMatrix(@parent.columnSumOptions) else  [[]]
-      @columnSumUnitOptions = if !!@parent then @cloneMatrix(@parent.columnSumUnitOptions) else [[]]
-      @rowSumOptions = if !!@parent then @cloneMatrix(@parent.rowSumOptions) else [[]]
-      @optionsScore = if !!@parent then @cloneMatrix(@parent.optionsScore) else []
+      @pair_wise_options = [[[]]]
+      @pair_wise_options_fractions = [[[]]]
+      @columnSumOptions = [[]]
+      @columnSumUnitOptions = [[]]
+      @rowSumOptions = [[]]
+      @optionsScore = []
       @childs = []
       
-    cloneMatrix:(matrix)->
-      if Object.prototype.toString.call( matrix ) == '[object Array]'
-        result = []
-        for node in matrix
-          result.push @cloneMatrix(node)
-      else
-        result = ''
-      result
-        
     getChilds:->
       @childs
       
@@ -52,9 +43,11 @@ angular.module('app.models', [])
     
     getOptionsScore:(index)->
       result = 0
+      notChilded = true
       if @hasChilds()
-        result += child.getOptionsScore(index) for child in @childs
-      else
-        result = if @optionsScore[index]? then @optionsScore[$index].score else 0
+        (result += child.getOptionsScore(index) if (child.hasChilds() && notChilded = false)) for child in @childs
+      
+      if notChilded
+        result = if @optionsScore[index] != undefined and not isNaN(@optionsScore[index]) then @optionsScore[$index].score else 0
       result
         
