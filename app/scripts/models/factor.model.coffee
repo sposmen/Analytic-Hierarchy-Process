@@ -40,3 +40,12 @@ angular.module('app.models', [])
       
     hasParent:->
       !!parent || false
+    
+    getOptionsScore:(index)->
+      result = 0
+      if @hasChilds()
+        result += child.getOptionsScore(index) for child in @childs
+      else
+        result = if @optionsScore[index]? then @optionsScore[$index].score else 0
+      result
+        

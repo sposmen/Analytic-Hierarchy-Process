@@ -42,15 +42,15 @@ div
       tr(ng-repeat='option in options')
         th {{option.name}}
         td(ng-repeat='factor in factors') {{parentFactor.rowSumOptions[$index][$parent.$index] | number:2}}
-        th {{parentFactor.optionsScore[$index].score*100 | number:2}}%
+        th {{parentFactor.getOptionsScore($index)*100 | number:2}}%
         
-  h3 Resumen Parcial
+  h3 Resumen
   
   p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:
   ol
-    li(ng-repeat="result in parentFactor.optionsScore | orderBy:'score':'true'")
+    li(ng-repeat="result in parentFactor.optionsScore")
       b {{result.option.name}}
-      | , Score: {{result.score*100|number:2}}%
+      | , Score: {{getOptionsScore($index)*100|number:2}}%
       
   
   

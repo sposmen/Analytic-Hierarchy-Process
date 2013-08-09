@@ -6,7 +6,7 @@ table.table.table-bordered.table-striped
   tr(ng-repeat='factorRow in options')
     td {{factorRow.name}}
     td(ng-repeat='factorColumn in options')
-      input(type='text', ng-model='pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
+      input(type='text', ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
 
 
 h3 Normalización
@@ -19,10 +19,10 @@ table.table.table-bordered.table-striped
     th(ng-repeat='factorColumn in options') {{factorColumn.name}}
   tr(ng-repeat='factorRow in options')
     td {{factorRow.name}}
-    td(ng-repeat='factorColumn in options') {{pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index] | number:2 }}
+    td(ng-repeat='factorColumn in options') {{parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index] | number:2 }}
   tr
     th Suma Columna
-    td(ng-repeat='factorColumn in options') {{columnSumOptions[$parent.$parent.$index][$index] | number:2 }}
+    td(ng-repeat='factorColumn in options') {{parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2 }}
 
 h4 Normalización
 table.table.table-bordered.table-striped
@@ -32,9 +32,9 @@ table.table.table-bordered.table-striped
     th Peso
   tr(ng-repeat='factorRow in options')
     td {{factorRow.name}}
-    td(ng-repeat='factorColumn in options') {{pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index]/columnSumOptions[$parent.$parent.$index][$index] | number:2 }}
-    td {{rowSumOptions[$parent.$parent.$index][$index]*100 | number:2 }}%
+    td(ng-repeat='factorColumn in options') {{parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index]/parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2 }}
+    td {{parentFactor.rowSumOptions[$parent.$parent.$index][$index]*100 | number:2 }}%
   tr
     th Suma Columna
-    td(ng-repeat='factorColumn in options') {{columnSumUnitOptions[$parent.$parent.$index][$index] | number:2 }}
+    td(ng-repeat='factorColumn in options') {{parentFactor.columnSumUnitOptions[$parent.$parent.$index][$index] | number:2 }}
     td
