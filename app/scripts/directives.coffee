@@ -27,7 +27,7 @@ angular.module('app.directives', [
   scope: 
     factors: '=childs'
     options: '=options'
-    parent: '=parent'
+    parentFactor: '=parentFactor'
     level: '=level'
   transclude: true
   controller: 'FactorsCtrl'

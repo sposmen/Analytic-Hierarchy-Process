@@ -33,17 +33,3 @@ Controllers = angular.module('app.controllers', [])
     else
       return ''
 ])
-
-.controller('MyCtrl1', [
-  '$scope'
-
-($scope) ->
-  $scope.onePlusOne = 2
-])
-
-.controller('MyCtrl2', [
-  '$scope'
-
-($scope) ->
-  $scope
-])

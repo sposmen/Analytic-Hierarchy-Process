@@ -13,9 +13,6 @@ div
         td {{$index+1}}
         td
           input(type='text',ng-model='factor.name')
-          button.btn.btn-primary(ng-click='factor.addChild()', ng-hide="factor.hasChilds()")
-            i.icon-plus.icon-white
-            |  Subfactors
   
   
   h3 Comparación por pares
@@ -27,7 +24,7 @@ div
       tr(ng-repeat='factorRow in factors')
         td {{factorRow.name}}
         td(ng-repeat='factorColumn in factors')
-          input(type='text', ng-model='pairwise[$parent.$index][$index]')
+          input(type='text', ng-model='parentFactor.pairwise[$parent.$index][$index]')
   
   
   h3 Normalización
@@ -41,27 +38,27 @@ div
         th(ng-repeat='factorColumn in factors') {{factorColumn.name}}
       tr(ng-repeat='factorRow in factors')
         th {{factorRow.name}}
-        td(ng-repeat='factorColumn in factors') {{pairwisefractions[$parent.$index][$index] | number:2}}
+        td(ng-repeat='factorColumn in factors') {{parentFactor.pairwisefractions[$parent.$index][$index] | number:2}}
       tr
         th Suma Columna
-        td(ng-repeat='factorColumn in factors') {{columnSum[$index] | number:2}}
+        td(ng-repeat='factorColumn in factors') {{parentFactor.columnSum[$index] | number:2}}
   
   h4 Normalización
   .row-fluid
     table.table.table-bordered.table-striped
       tr
         td
-        th(ng-repeat='factorColumn in factors') {{factorColumn.name}}
+        th(ng-repeat='factorColumn in factors') {{parentFactor.factorColumn.name}}
         th Peso
       tr(ng-repeat='factorRow in factors')
         td {{factorRow.name}}
-        td(ng-repeat='factorColumn in factors') {{pairwisefractions[$parent.$index][$index]/columnSum[$index]  | number:2}}
-        td {{rowSum[$index]*100 | number:2}}%
+        td(ng-repeat='factorColumn in factors') {{parentFactor.pairwisefractions[$parent.$index][$index]/parentFactor.columnSum[$index]  | number:2}}
+        td {{parentFactor.rowSum[$index]*100 | number:2}}%
       tr
         th Suma Columna
-        td(ng-repeat='factorColumn in factors') {{columnSumUnit[$index] | number:2}}
+        td(ng-repeat='factorColumn in factors') {{parentFactor.columnSumUnit[$index] | number:2}}
         td
-        
+
   accordion
-    accordion-group(ng-repeat="factor in factors", heading="Análisis de Subfactores para {{factor.name}}", ng-show="factor.childs.length > 0")
-      factors(childs="factor.childs", options="options", parent="factor", level="level+1")
+    accordion-group(ng-repeat="factor in factors", heading="Análisis de Subfactores para {{factor.name}}")
+      factors(childs="factor.childs", options="options", parent-factor="factor", level="level+1")

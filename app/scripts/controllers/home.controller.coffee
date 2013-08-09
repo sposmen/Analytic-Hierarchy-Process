@@ -4,12 +4,18 @@ Controllers.controller('HomeCtrl', [
   'Factor'
 
 ($scope, $rootScope, Factor) ->
-  
+
   $rootScope.pageTitle = "Analytic Hierarchy Process"
-  
-  $scope.factor = new Factor()
+
+  $scope.rootFactor = new Factor()
     
-  $scope.factor.addChild name:"Sample Factor"
+  $scope.rootFactor.addChild()
+  
+  # Proyects or Options to be evaluated
+  $scope.options = [
+    description:''
+    name:'Sample Option'
+  ]
   
   #File utility
   $scope.saveFile=()->

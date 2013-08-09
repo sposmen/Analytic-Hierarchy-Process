@@ -1,5 +1,6 @@
-div(ng-app='ng-app')
-  factors(childs="factor.childs", options="options", parent="factor", level="0")
+div(ng-controller='HomeCtrl')
+  | {{ waat }}
+  factors(childs="rootFactor.childs", options="options", parent-factor="rootFactor", level="0")
   
   h3 Resumen General
   
