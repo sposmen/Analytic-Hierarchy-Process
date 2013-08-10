@@ -2,11 +2,8 @@ div
   div.row-fluid
     h3.span3 Ingresa la meta
       input.input-xxlarge(type="text", ng-model="parentFactor.meta")
-  
-  div(ng-include="'/partials/factors_table.html'")
-  
-  hr
-  
+      
+      
   .options(ng-hide="!!parentFactor.parent")
     h3 Proyectos/Opciones a evaluar
       button.btn.btn-primary(ng-click='addOption()')
@@ -23,12 +20,11 @@ div
           td
             input(type='text',ng-model='option.name')
           
-  div(ng-repeat="factor in factors")
-    h3 Comparación de proyectos/opciones por el factor 
-      b {{factor.name}}
-    div(ng-include="'/partials/options.html'")
-    
-  h2 Resultados
+  hr
+  
+  div(ng-include="'/partials/factors_table.html'")
+  
+  h2 Resultados de los Factores
   .row-fluid
     table.table.table-bordered.table-striped
       tr
@@ -43,6 +39,11 @@ div
         th {{option.name}}
         td(ng-repeat='factor in factors') {{parentFactor.rowSumOptions[$index][$parent.$index] | number:2}}
         th {{parentFactor.getOptionsScore($index)*100 | number:2}}%
+        
+  div(ng-repeat="factor in factors")
+    h3 Comparación de proyectos/opciones por el factor 
+      b {{factor.name}}
+    div(ng-include="'/partials/options.html'")
         
   h3 Resumen
   

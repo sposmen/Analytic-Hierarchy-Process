@@ -5,6 +5,8 @@ Controllers.controller('FactorsCtrl', [
 
 ($scope, $rootScope, Factor) ->
   
+  $scope.show_process = $rootScope.show_process
+  
   $scope.$watch 'parentFactor.pairwise',->
     pairwiseChange()
   , true

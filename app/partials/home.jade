@@ -1,5 +1,11 @@
 div(ng-controller='HomeCtrl')
-  | {{ waat }}
+  .config.pull-right
+    .form-inline
+      label.checkbox
+        input(type="checkbox", ng-model="$root.show_process")
+        |  Mostrar Proceso
+  
+  
   factors(childs="rootFactor.childs", options="options", parent-factor="rootFactor", level="0")
   
   h3 Resumen General

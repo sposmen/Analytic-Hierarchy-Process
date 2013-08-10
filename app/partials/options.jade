@@ -8,36 +8,36 @@ table.table.table-bordered.table-striped
     td(ng-repeat='factorColumn in options')
       input(type='text', ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
 
-
-h3 Normalización
-
-h4 Fracciones
-
-table.table.table-bordered.table-striped
-  tr
-    td
-    th(ng-repeat='factorColumn in options') {{factorColumn.name}}
-  tr(ng-repeat='factorRow in options')
-    td {{factorRow.name}}
-    td(ng-repeat='factorColumn in options') {{parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index] | number:2 }}
-  tr
-    th Suma Columna
-    td(ng-repeat='factorColumn in options') {{parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2 }}
-
-h4 Normalización
-table.table.table-bordered.table-striped
-  tr
-    td
-    th(ng-repeat='factorColumn in options') {{factorColumn.name}}
-    th Peso
-    th(ng-show="parentFactor.parent") Peso Relativo
-  tr(ng-repeat='factorRow in options')
-    td {{factorRow.name}}
-    td(ng-repeat='factorColumn in options') {{parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index]/parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2 }}
-    td {{parentFactor.rowSumOptions[$parent.$parent.$index][$index]*100 | number:2 }}%
-    td(ng-show="parentFactor.parent") {{parentFactor.rowSumOptions[$parent.$parent.$index][$index]*parentFactor.rowSum[$parent.$index]*parentFactor.parent.rowSum[parentFactor.parent.childs.indexOf(parentFactor)]*100 | number:2}}%
-  tr
-    th Suma Columna
-    td(ng-repeat='factorColumn in options') {{parentFactor.columnSumUnitOptions[$parent.$parent.$index][$index] | number:2 }}
-    td
-    td(ng-show="parentFactor.parent")
+.process(ng-show="$root.show_process")
+  h3 Proceso de Normalización de las Opciones
+  
+  h4 Fracciones
+  
+  table.table.table-bordered.table-striped
+    tr
+      td
+      th(ng-repeat='factorColumn in options') {{factorColumn.name}}
+    tr(ng-repeat='factorRow in options')
+      td {{factorRow.name}}
+      td(ng-repeat='factorColumn in options') {{parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index] | number:2 }}
+    tr
+      th Suma Columna
+      td(ng-repeat='factorColumn in options') {{parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2 }}
+  
+  h4 Normalización
+  table.table.table-bordered.table-striped
+    tr
+      td
+      th(ng-repeat='factorColumn in options') {{factorColumn.name}}
+      th Peso
+      th(ng-show="parentFactor.parent") Peso Relativo
+    tr(ng-repeat='factorRow in options')
+      td {{factorRow.name}}
+      td(ng-repeat='factorColumn in options') {{parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index]/parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2 }}
+      td {{parentFactor.rowSumOptions[$parent.$parent.$index][$index]*100 | number:2 }}%
+      td(ng-show="parentFactor.parent") {{parentFactor.rowSumOptions[$parent.$parent.$index][$index]*parentFactor.rowSum[$parent.$index]*parentFactor.parent.rowSum[parentFactor.parent.childs.indexOf(parentFactor)]*100 | number:2}}%
+    tr
+      th Suma Columna
+      td(ng-repeat='factorColumn in options') {{parentFactor.columnSumUnitOptions[$parent.$parent.$index][$index] | number:2 }}
+      td
+      td(ng-show="parentFactor.parent")

@@ -6,6 +6,8 @@ Controllers.controller('HomeCtrl', [
 ($scope, $rootScope, Factor) ->
 
   $rootScope.pageTitle = "Analytic Hierarchy Process"
+  
+  $rootScope.show_process = false
 
   $scope.rootFactor = new Factor()
   $scope.rootFactor.name = 'General'
