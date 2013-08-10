@@ -32,11 +32,14 @@ Controllers.controller('FactorsCtrl', [
       $scope.parentFactor.rowSum[i] = $scope.parentFactor.rowSum[i]/$scope.factors.length
     
   $scope.addFactor=()->
-    $scope.parentFactor.addChild()
+    i = $scope.parentFactor.addChild()-1
     $scope.parentFactor.pairwise.push([])
     $scope.parentFactor.pairwisefractions.push([])
-    $scope.parentFactor.pair_wise_options.push(([] for option in $scope.options))
-    $scope.parentFactor.pair_wise_options_fractions.push(([] for option in $scope.options))
+    $scope.parentFactor.pair_wise_options[i] = []
+    $scope.parentFactor.pair_wise_options_fractions[i] = []
+    for option in $scope.options
+      $scope.parentFactor.pair_wise_options[i].push([])
+      $scope.parentFactor.pair_wise_options_fractions[i].push([])
   
   $scope.$watch 'parentFactor.pair_wise_options',->
     pair_wise_optionsChange()
@@ -66,7 +69,10 @@ Controllers.controller('FactorsCtrl', [
         $scope.parentFactor.rowSumOptions[k][i] = $scope.parentFactor.rowSumOptions[k][i]/$scope.options.length
   
   $scope.$watch 'options', (newValue, oldValue) ->
-    ($scope.parentFactor.pair_wise_options[i].push([]) && $scope.parentFactor.pair_wise_options_fractions[i].push([]) ) for factor,i in $scope.factors
+    for factor,i in $scope.factors
+      for option in $scope.options
+        $scope.parentFactor.pair_wise_options[i].push([])
+        $scope.parentFactor.pair_wise_options_fractions[i].push([])
   , true
   
   $scope.addOption=()->

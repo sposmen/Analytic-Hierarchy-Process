@@ -21,11 +21,8 @@ Controllers.controller('HomeCtrl', [
   #File utility
   $scope.saveFile=()->
     data =
-      meta: angular.copy $scope.meta
-      factors:angular.copy $scope.factors
-      pairwise: angular.copy $scope.pairwise
-      options: angular.copy $scope.options
-      pair_wise_options:angular.copy $scope.pair_wise_options
+      factors:$scope.rootFactor.getTree()
+      options:$scope.options
     
     downloadData = $.base64.btoa(JSON.stringify(data));      
     uriContent = "data:application/octet;filename=AHP.json," + downloadData 
@@ -40,14 +37,10 @@ Controllers.controller('HomeCtrl', [
         (e)->
           data = JSON.parse $.base64.atob(e.target.result)
           $scope.$apply ->
-            $scope.resetAHP()
-            $scope.meta= data.meta
-            $scope.factors= data.factors
-            $scope.pairwise= data.pairwise
-            $scope.pairwisefractions= angular.copy data.pairwise
+            $scope.rootFactor = new Factor()
             $scope.options= data.options
-            $scope.pair_wise_options=data.pair_wise_options
-            $scope.pair_wise_options_fractions = angular.copy data.pair_wise_options
+            $scope.rootFactor.setTree(data.factors)
+            
           
       )($scope.selectedFile)
 

@@ -5,6 +5,7 @@ angular.module('app.models', [])
     
     constructor: (parent)->
       @parent = parent || false
+      @meta = ''
       @name = 'New Factor'
       @pairwise = [[]]
       @pairwisefractions = [[]]
@@ -18,6 +19,27 @@ angular.module('app.models', [])
       @rowSumOptions = [[]]
       @optionsScore = []
       @childs = []
+      
+    getTree:->
+      childs = []
+      childs.push(child.getTree()) for child in @childs
+      
+      name: @name
+      meta: @meta
+      pairwise:@pairwise
+      pair_wise_options:@pair_wise_options
+      childs:childs
+      
+    setTree:(data)->
+      @name = data.name
+      @meta= data.meta
+      @pairwise= data.pairwise
+      @pairwisefractions= angular.copy data.pairwise
+      @pair_wise_options=data.pair_wise_options
+      @pair_wise_options_fractions = angular.copy data.pair_wise_options
+      for child in data.childs
+        i = @addChild() - 1
+        @childs[i].setTree(child)
       
     getChilds:->
       @childs
@@ -45,9 +67,18 @@ angular.module('app.models', [])
       result = 0
       notChilded = true
       if @hasChilds()
-        (result += child.getOptionsScore(index) if (child.hasChilds() && notChilded = false)) for child in @childs
+        for child in @childs
+          if child.hasChilds()
+            notChilded = false
+            result += child.getOptionsScore(index)
       
       if notChilded
-        result = if @optionsScore[index] != undefined and not isNaN(@optionsScore[index]) then @optionsScore[$index].score else 0
+        result = if @optionsScore[index] != undefined and not isNaN(@optionsScore[index].score) then @optionsScore[index].score else 0
+        if !!@parent and
+          @parent.rowSum[@parent.childs.indexOf(@)] != undefined and
+          not isNaN(@parent.rowSum[@parent.childs.indexOf(@)]) and
+          @parent.rowSum[@parent.childs.indexOf(@)] != 0
+            result = result*@parent.rowSum[@parent.childs.indexOf(@)]
+        
       result
         

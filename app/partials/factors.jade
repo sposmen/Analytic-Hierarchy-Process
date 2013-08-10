@@ -1,7 +1,7 @@
 div
   div.row-fluid
     h3.span3 Ingresa la meta
-      input.input-xxlarge(type="text", ng-model="meta")
+      input.input-xxlarge(type="text", ng-model="parentFactor.meta")
   
   div(ng-include="'/partials/factors_table.html'")
   
@@ -46,11 +46,11 @@ div
         
   h3 Resumen
   
-  p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:
+  p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{parentFactor.meta}}, y el score fué el siguiente:
   ol
-    li(ng-repeat="result in parentFactor.optionsScore")
-      b {{result.option.name}}
-      | , Score: {{getOptionsScore($index)*100|number:2}}%
+    li(ng-repeat="option in options")
+      b {{option.name}}
+      | , Score: {{parentFactor.getOptionsScore($index)*100|number:2}}%
       
   
   
