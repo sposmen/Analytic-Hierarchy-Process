@@ -16,6 +16,11 @@ div
   
   
   h3 Comparación por pares
+  .row-fluid(ng-repeat='factorRow in factors')
+
+    .span12(ng-repeat='factorColumn in factors', ng-show="$index > $parent.$index")
+      | {{factorRow.name}} vs {{factorColumn.name}}
+      select(ng-options="fraction for fraction in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
   .row-fluid
     table.table.table-bordered.table-striped
       tr
@@ -24,7 +29,7 @@ div
       tr(ng-repeat='factorRow in factors')
         td {{factorRow.name}}
         td(ng-repeat='factorColumn in factors')
-          input(type='text', ng-model='parentFactor.pairwise[$parent.$index][$index]')
+          select(ng-options="fraction for fraction in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
   
   .process(ng-show="$root.show_process")
     h3 Proceso de Normalización

@@ -10,6 +10,8 @@ Controllers.controller('FactorsCtrl', [
   $scope.$watch 'parentFactor.pairwise',->
     pairwiseChange()
   , true
+
+  $scope.fractions =["9","7","5","3","1","1/3","1/5","1/7", "1/9"]
   
   pairwiseChange=->
     $scope.parentFactor.columnSum = []
