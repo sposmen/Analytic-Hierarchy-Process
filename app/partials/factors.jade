@@ -1,6 +1,6 @@
 div
-  div.row-fluid
-    h3.span3 Ingresa la meta
+  .row-fluid
+    h3.span12 Ingrese la meta a la cual desea llegar a través del análisis:
       input.input-xxlarge(type="text", ng-model="parentFactor.meta")
       
       
@@ -9,7 +9,9 @@ div
       button.btn.btn-primary(ng-click='addOption()')
         i.icon-plus.icon-white
         |  Opción
-    
+    span Indique que Proyectos u Opciones son las que desea evaluar.
+    |  Ej: Proyectos de Negocio, Proyectos de Vivienda, Viaje de Vacaciones, etc.
+
     .row-fluid
       table.table.table-bordered.table-striped
         tr
@@ -19,11 +21,11 @@ div
           td {{$index+1}}
           td
             input(type='text',ng-model='option.name')
-          
+
   hr
   
   div(ng-include="'/partials/factors_table.html'")
-  
+
   h2 Resultados de los Factores
   .row-fluid
     table.table.table-bordered.table-striped

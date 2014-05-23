@@ -3,7 +3,13 @@ div
     button.btn.btn-primary(ng-click='addFactor()')
       i.icon-plus.icon-white
       |  Factor
-  
+
+  span Los factores de decisión es la herramienta que nos ayudará a balancear según el criterio propio que es más importante para nosotros.
+    br
+    | Ej1: Proyectos de Negocio: Rentabilidad, Seguridad en la inversión, Respaldo, etc.
+    br
+    | Ej2: Proyectos de vivienda: Alcobas, Espacio interior, Costo, Altura.
+
   .row-fluid(ng-show="factors.length > 0")
     table.table.table-bordered.table-striped
       tr
@@ -15,22 +21,29 @@ div
           input(type='text',ng-model='factor.name')
   
   
-  h3 Comparación por pares
-  .row-fluid(ng-repeat='factorRow in factors')
+  h3 Comparación de los factores (por pares)
+  span La comparación de los factores es la importancia que le damos a los factores comparados entre sí. Hay que tener presente que un factor frente a otro es inverso, es decir si se compara el 'Factor 1' vs 'Factor 2' y
+    | le asignamos un valor de '5', su comportamiento inverso sería comparar 'Factor 2' vs 'Factor 1' con un valor de '1/5':
+    br
+    br
+    ol
+      li  Ej1: Proyectos de Negocio: Si comparamos Rentabilidad vs Seguridad en la inversión y soy una persona que toma riesgos, es probable que la Rentabilidad sea algo más importante que la Seguridad en la Inversión,
+        | por lo que en este caso se podría escoger '3' en este aspecto. En caso de ser muchimimo más importante podríamos asignarle un '9'.
 
-    .span12(ng-repeat='factorColumn in factors', ng-show="$index > $parent.$index")
-      | {{factorRow.name}} vs {{factorColumn.name}}
-      select(ng-options="fraction for fraction in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
+      li Ej2: Proyectos de vivienda: Se comparamos Alcobas vs Costo y finalmente el capital que tengo para el proyecto no es muy alto, es probable que las alcobas pasen a un segundo plano escogiendo '1/5'
+        | convirtiendo al Costo como más importante sobre las Alcobas
+
   .row-fluid
     table.table.table-bordered.table-striped
       tr
-        td
-        th(ng-repeat='factorColumn in factors') {{factorColumn.name}}
-      tr(ng-repeat='factorRow in factors')
-        td {{factorRow.name}}
-        td(ng-repeat='factorColumn in factors')
-          select(ng-options="fraction for fraction in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
-  
+        th Factor
+        th Comparación
+      tbody(ng-repeat='factorRow in factors')
+        tr(ng-repeat='factorColumn in factors', ng-show="$index > $parent.$index")
+          td {{factorRow.name}} vs {{factorColumn.name}}
+          td
+            select(ng-options="fraction for fraction in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
+
   .process(ng-show="$root.show_process")
     h3 Proceso de Normalización
     

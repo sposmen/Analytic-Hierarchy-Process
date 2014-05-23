@@ -6,7 +6,7 @@ angular.module('app.models', [])
     constructor: (parent)->
       @parent = parent || false
       @meta = ''
-      @name = 'New Factor'
+      @name = ''
       @pairwise = [[]]
       @pairwisefractions = [[]]
       @columnSum = []

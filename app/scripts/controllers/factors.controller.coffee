@@ -18,7 +18,12 @@ Controllers.controller('FactorsCtrl', [
     $scope.parentFactor.columnSumUnit = []
     $scope.parentFactor.rowSum = []
     for row,i in $scope.parentFactor.pairwise
+      $scope.parentFactor.pairwise[i][i] = null unless $scope.parentFactor.pairwise[i][i]?
       for column,j in row
+        if !$scope.parentFactor.pairwise[i][j]? and i is j
+          $scope.parentFactor.pairwise[i][j] = $scope.parentFactor.pairwise[j][i] = "1"
+        $scope.parentFactor.pairwise[j][i] = "1/(" + column + ")" if i < j
+
         column = $scope.parentFactor.pairwisefractions[i][j] = (
           try
             eval(column)
