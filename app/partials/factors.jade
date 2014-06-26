@@ -43,8 +43,7 @@ div
         th {{parentFactor.getOptionsScore($index)*100 | number:2}}%
         
   div(ng-repeat="factor in factors")
-    h3 Comparación de proyectos/opciones por el factor 
-      b {{factor.name}}
+    h3 Comparación de proyectos/opciones
     div(ng-include="'/partials/options.html'")
         
   h3 Resumen

@@ -1,12 +1,15 @@
-h3 Comparación por pares
 table.table.table-bordered.table-striped
   tr
-    td
-    th(ng-repeat='factorColumn in options') {{factorColumn.name}}
-  tr(ng-repeat='factorRow in options')
-    td {{factorRow.name}}
-    td(ng-repeat='factorColumn in options')
-      input(type='text', ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
+    th Comparación respecto a:
+      b  {{factor.name}}
+    th Valor
+  tbody(ng-repeat='factorRow in options')
+    tr(ng-repeat='factorColumn in options', ng-show="$index > $parent.$index")
+      td {{factorRow.name}} vs {{factorColumn.name}}
+      td
+        select(ng-options="fraction for fraction in fractions", ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
+
+
 
 .process(ng-show="$root.show_process")
   h3 Proceso de Normalización de las Opciones
