@@ -24,8 +24,9 @@ div
       tr(ng-repeat='factorRow in factors')
         td {{factorRow.name}}
         td(ng-repeat='factorColumn in factors')
-          input(type='text', ng-model='parentFactor.pairwise[$parent.$index][$index]')
-  
+          input(ng-show='$parent.$index < $index', type='text', ng-model='parentFactor.pairwise[$parent.$index][$index]')
+          span(ng-show='$parent.$index >= $index', ng-bind='parentFactor.pairwise[$parent.$index][$index] | number:2 ')
+
   .process(ng-show="$root.show_process")
     h3 Proceso de Normalización
     

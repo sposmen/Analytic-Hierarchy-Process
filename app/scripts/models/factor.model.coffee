@@ -8,11 +8,13 @@ angular.module('app.models', [])
       @meta = ''
       @name = 'New Factor'
       @pairwise = [[]]
+      @pairwise[0][0] = 1
       @pairwisefractions = [[]]
       @columnSum = []
       @columnSumUnit = []
       @rowSum = []
       @pair_wise_options = [[[]]]
+      @pair_wise_options[0][0][0] = 1
       @pair_wise_options_fractions = [[[]]]
       @columnSumOptions = [[]]
       @columnSumUnitOptions = [[]]
