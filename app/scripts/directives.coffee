@@ -12,7 +12,7 @@ angular.module('app.directives', [
   'version'
 
 (version) ->
-  (scope, elm, attrs) ->
+  (scope, elm) ->
     elm.text(version)
 ])
 
@@ -23,7 +23,7 @@ angular.module('app.directives', [
       $(element).parent().find(attrs.clicksTo).click()
 
 .directive 'factors', ->
-  restrict: 'E'
+  restrict: 'C'
   scope: 
     factors: '=childs'
     options: '=options'
@@ -32,4 +32,14 @@ angular.module('app.directives', [
   transclude: true
   controller: 'FactorsCtrl'
   templateUrl: '/partials/factors.html'
+  replace: true
+
+.directive 'factorsTable', ->
+  restrict: 'C'
+  templateUrl: '/partials/factors_table.html'
+  replace: true
+
+.directive 'factorOptions', ->
+  restrict: 'C'
+  templateUrl: '/partials/options.html'
   replace: true

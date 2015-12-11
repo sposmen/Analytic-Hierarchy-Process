@@ -2,6 +2,8 @@ class FactorController
   constructor: ($scope, $rootScope, Factor) ->
     $scope.show_process = $rootScope.show_process
 
+    $scope.fractions =["9","7","5","3","1","1/3","1/5","1/7", "1/9"]
+
     $scope.$watch 'parentFactor.pairwise', ->
       pairwiseChange()
     , true

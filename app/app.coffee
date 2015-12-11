@@ -4,6 +4,7 @@
 App = angular.module('app', [
   'ngCookies'
   'ngResource'
+  'ngRoute'
   'app.controllers'
   'app.directives'
   'app.models'
@@ -23,8 +24,6 @@ App.config([
   $routeProvider
 
     .when('/home', {templateUrl: '/partials/home.html'})
-    .when('/view1', {templateUrl: '/partials/partial1.html'})
-    .when('/view2', {templateUrl: '/partials/partial2.html'})
 
     # Catch all
     .otherwise({redirectTo: '/home'})

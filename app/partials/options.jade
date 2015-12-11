@@ -1,44 +1,45 @@
-h3 Comparación por pares
-table.table.table-bordered.table-striped
-  tr
-    td
-    th(ng-repeat='factorColumn in options', ng-bind="factorColumn.name")
-  tr(ng-repeat='factorRow in options')
-    td(ng-bind="factorRow.name")
-    td(ng-repeat='factorColumn in options')
-      input(ng-show='$parent.$index < $index',type='text', ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
-      span(ng-show='$parent.$index >= $index', ng-bind='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index] | number:2 ')
-
-.process(ng-show="$root.show_process")
-  h3 Proceso de Normalización de las Opciones
-
-  h4 Fracciones
-
+div
+  h3 Comparación por pares
   table.table.table-bordered.table-striped
     tr
       td
       th(ng-repeat='factorColumn in options', ng-bind="factorColumn.name")
     tr(ng-repeat='factorRow in options')
       td(ng-bind="factorRow.name")
-      td(ng-repeat='factorColumn in options', ng-bind="parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index] | number:2")
-    tr
-      th Suma Columna
-      td(ng-repeat='factorColumn in options', ng-bind="parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2 ")
+      td(ng-repeat='factorColumn in options')
+        input(ng-show='$parent.$index < $index',type='text', ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
+        span(ng-show='$parent.$index >= $index', ng-bind='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index] | number:2 ')
 
-  h4 Normalización
-  table.table.table-bordered.table-striped
-    tr
-      td
-      th(ng-repeat='factorColumn in options', ng-bind="factorColumn.name")
-      th Peso
-      th(ng-show="parentFactor.parent") Peso Relativo
-    tr(ng-repeat='factorRow in options')
-      td(ng-bind="factorRow.name")
-      td(ng-repeat='factorColumn in options', ng-bind="parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index]/parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2")
-      td(ng-bind="(parentFactor.rowSumOptions[$parent.$parent.$index][$index]*100 | number:2 ) + '%'")
-      td(ng-show="parentFactor.parent", ng-bind="(parentFactor.rowSumOptions[$parent.$parent.$index][$index]*parentFactor.rowSum[$parent.$index]*parentFactor.parent.rowSum[parentFactor.parent.childs.indexOf(parentFactor)]*100 | number:2) + '%'")
-    tr
-      th Suma Columna
-      td(ng-repeat='factorColumn in options', ng-bind="parentFactor.columnSumUnitOptions[$parent.$parent.$index][$index] | number:2")
-      td
-      td(ng-show="parentFactor.parent")
+  .process(ng-show="$root.show_process")
+    h3 Proceso de Normalización de las Opciones
+
+    h4 Fracciones
+
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factorColumn in options', ng-bind="factorColumn.name")
+      tr(ng-repeat='factorRow in options')
+        td(ng-bind="factorRow.name")
+        td(ng-repeat='factorColumn in options', ng-bind="parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index] | number:2")
+      tr
+        th Suma Columna
+        td(ng-repeat='factorColumn in options', ng-bind="parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2 ")
+
+    h4 Normalización
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factorColumn in options', ng-bind="factorColumn.name")
+        th Peso
+        th(ng-show="parentFactor.parent") Peso Relativo
+      tr(ng-repeat='factorRow in options')
+        td(ng-bind="factorRow.name")
+        td(ng-repeat='factorColumn in options', ng-bind="parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index]/parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2")
+        td(ng-bind="(parentFactor.rowSumOptions[$parent.$parent.$index][$index]*100 | number:2 ) + '%'")
+        td(ng-show="parentFactor.parent", ng-bind="(parentFactor.rowSumOptions[$parent.$parent.$index][$index]*parentFactor.rowSum[$parent.$index]*parentFactor.parent.rowSum[parentFactor.parent.childs.indexOf(parentFactor)]*100 | number:2) + '%'")
+      tr
+        th Suma Columna
+        td(ng-repeat='factorColumn in options', ng-bind="parentFactor.columnSumUnitOptions[$parent.$parent.$index][$index] | number:2")
+        td
+        td(ng-show="parentFactor.parent")
