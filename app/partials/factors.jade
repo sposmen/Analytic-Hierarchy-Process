@@ -1,11 +1,11 @@
 div
   div.row-fluid
-    h3.span3 Ingresa la meta
-      input.input-xxlarge(type="text", ng-model="parentFactor.meta")
+    h3.span12 Ingresa el objetivo de la comparación. En ocasiones es conocida como la meta.
+    input.input-xxlarge(type="text", ng-model="parentFactor.meta")
 
 
   .options(ng-hide="!!parentFactor.parent")
-    h3 Proyectos/Opciones a evaluar
+    h3 Ingrese los Proyectos/Opciones a evaluar en el objetivo.
       button.btn.btn-primary(ng-click='addOption()')
         i.icon-plus.icon-white
         |  Opción
@@ -24,12 +24,12 @@ div
 
   div.factors-table
 
-  h2 Seleccione ahora como son las opciones frente a cada factor de decisión.
+  h3 Seleccione ahora como es cada opción frente a otra basados en cada factor de decisión.
   div(ng-repeat="factor in factors")
     div.factor-options
 
   .process(ng-show="$root.show_process")
-    h2 Resultados de los Factores
+    h3 Resultados de los Factores
     .row-fluid
       table.table.table-bordered.table-striped
         tr
@@ -45,7 +45,7 @@ div
           td(ng-repeat='factor in factors', ng-bind="parentFactor.rowSumOptions[$index][$parent.$index] | number:2")
           th(ng-bind="(parentFactor.getOptionsScore($index)*100 | number:2) + '%'")
 
-  h2 Resumen
+  h3 Resumen
 
   p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{parentFactor.meta}}, y el score fué el siguiente:
   ol

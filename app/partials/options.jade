@@ -35,7 +35,7 @@ div
         td(ng-repeat='factorColumn in options', ng-bind="parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index] | number:2")
       tr
         th Suma Columna
-        td(ng-repeat='factorColumn in options', ng-bind="parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2 ")
+        td(ng-repeat='factorColumn in options', ng-bind="parentFactor.columnSumOptions[$parent.$index][$index] | number:2 ")
 
     h4 Normalización
     table.table.table-bordered.table-striped
@@ -47,10 +47,10 @@ div
       tr(ng-repeat='factorRow in options')
         td(ng-bind="factorRow.name")
         td(ng-repeat='factorColumn in options', ng-bind="parentFactor.pair_wise_options_fractions[$parent.$parent.$index][$parent.$index][$index]/parentFactor.columnSumOptions[$parent.$parent.$index][$index] | number:2")
-        td(ng-bind="(parentFactor.rowSumOptions[$parent.$parent.$index][$index]*100 | number:2 ) + '%'")
+        td(ng-bind="(parentFactor.rowSumOptions[$parent.$index][$index]*100 | number:2 ) + '%'")
         td(ng-show="parentFactor.parent", ng-bind="(parentFactor.rowSumOptions[$parent.$parent.$index][$index]*parentFactor.rowSum[$parent.$index]*parentFactor.parent.rowSum[parentFactor.parent.childs.indexOf(parentFactor)]*100 | number:2) + '%'")
       tr
         th Suma Columna
-        td(ng-repeat='factorColumn in options', ng-bind="parentFactor.columnSumUnitOptions[$parent.$parent.$index][$index] | number:2")
+        td(ng-repeat='factorColumn in options', ng-bind="parentFactor.columnSumUnitOptions[$parent.$index][$index] | number:2")
         td
         td(ng-show="parentFactor.parent")
