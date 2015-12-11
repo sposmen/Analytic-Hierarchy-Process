@@ -1,7 +1,7 @@
 div
   h3 Cuales son los factores de decisión ?
     button.btn.btn-primary(ng-click='addFactor()')
-      i.icon-plus.icon-white
+      span.glyphicon.glyphicon-plus
       |  Factor
 
   .row-fluid(ng-show="factors.length > 0")
@@ -12,7 +12,7 @@ div
       tr(ng-repeat='factor in factors')
         td(ng-bind="$index + 1")
         td
-          input(type='text',ng-model='factor.name')
+          input.form-control(type='text',ng-model='factor.name')
 
 
   h3 Seleccione que importancia tienen los factores de decisión.
@@ -25,7 +25,20 @@ div
       tr(ng-repeat='factorColumn in factors', ng-show="$index > $parent.$index")
         td(ng-bind="factorRow.name + ' sobre ' + factorColumn.name ")
         td
-          select(ng-options="value as fraction for (fraction, value) in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
+          select.form-control(ng-options="value as fraction for (fraction, value) in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
+  //table.table
+  //  tr
+  //    th Factor
+  //    th.text-center Seleccione que tan importante es un factor
+  //      br frente al otro
+  //    th Factor
+  //  tbody(ng-repeat='factorRow in factors')
+  //    tr(ng-repeat='factorColumn in factors', ng-show="$index > $parent.$index")
+  //      td(ng-bind="factorRow.name")
+  //      td
+  //        div
+  //          | Slider
+  //      td(ng-bind="factorColumn.name")
 
   .process(ng-show="$root.show_process")
     h3 Comparación por pares

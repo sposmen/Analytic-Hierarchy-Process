@@ -11,15 +11,14 @@
   "dependencies": {
     "console-polyfill": "~0.1.0",
     "jquery": "~2.0.3",
-    "bootstrap-less": "~2.3.2",
-    "bootstrap-less-themes": "git://github.com/angular-brunch/bootstrap-less-themes.git",
-    "angular-bootstrap": "~0.4.0",
+    "angular-bootstrap": "~0.14.3",
     "angular": "~1.4.8",
     "angular-sanitize": "~1.4.8",
     "angular-resource": "~1.4.8",
     "angular-cookies": "~1.4.8",
     "angular-mocks": "~1.4.8",
-    "angular-route": "~1.4.8"
+    "angular-route": "~1.4.8",
+    "bootstrap": "~3.3.6"
   },
   "overrides": {
     "bootstrap-less": {

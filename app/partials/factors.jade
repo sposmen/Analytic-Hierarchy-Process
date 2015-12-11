@@ -1,13 +1,13 @@
 div
   div.row-fluid
     h3.span12 Ingresa el objetivo de la comparación. En ocasiones es conocida como la meta.
-    input.input-xxlarge(type="text", ng-model="parentFactor.meta")
+    input.form-control(type="text", ng-model="parentFactor.meta")
 
 
   .options(ng-hide="!!parentFactor.parent")
     h3 Ingrese los Proyectos/Opciones a evaluar en el objetivo.
       button.btn.btn-primary(ng-click='addOption()')
-        i.icon-plus.icon-white
+        span.glyphicon.glyphicon-plus
         |  Opción
 
     .row-fluid
@@ -18,7 +18,7 @@ div
         tr(ng-repeat='option in options')
           td(ng-bind="$index+1")
           td
-            input(type='text',ng-model='option.name')
+            input.form-control(type='text',ng-model='option.name')
 
   hr
 

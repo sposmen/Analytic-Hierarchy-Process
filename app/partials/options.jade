@@ -9,7 +9,7 @@ div
       tr(ng-repeat='factorColumn in options', ng-show="$index > $parent.$index")
         td(ng-bind="factorRow.name + ' sobre ' + factorColumn.name ")
         td
-          select(ng-options="value as fraction for (fraction, value) in fractions", ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
+          select.form-control(ng-options="value as fraction for (fraction, value) in fractions", ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
 
   .process(ng-show="$root.show_process")
     h3 Comparación por pares
