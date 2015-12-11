@@ -1,2 +1,481 @@
-"use strict";var App;App=angular.module("app",["ngCookies","ngResource","app.controllers","app.directives","app.models","googlechart.directives","app.filters","app.services","partials","ui.bootstrap"]),App.config(["$routeProvider","$locationProvider",function(e,t){return e.when("/home",{templateUrl:"/partials/home.html"}).when("/view1",{templateUrl:"/partials/partial1.html"}).when("/view2",{templateUrl:"/partials/partial2.html"}).otherwise({redirectTo:"/home"}),t.html5Mode(!1)}]);var Controllers;Controllers=angular.module("app.controllers",[]).controller("AppCtrl",["$scope","$location","$resource","$rootScope",function(e,t){return e.$location=t,e.$watch("$location.path()",function(t){return e.activeNavId=t||"/"}),e.getClass=function(t){return e.activeNavId.substring(0,t.length)===t?"active":""}}]),Controllers.controller("FactorsCtrl",["$scope","$rootScope","Factor",function($scope,$rootScope,Factor){var pair_wise_optionsChange,pairwiseChange;return $scope.show_process=$rootScope.show_process,$scope.$watch("parentFactor.pairwise",function(){return pairwiseChange()},!0),pairwiseChange=function(){var column,e,i,j,row,v1,v2,_i,_j,_k,_l,_len,_len1,_len2,_len3,_ref,_ref1,_ref2,_results;for($scope.parentFactor.columnSum=[],$scope.parentFactor.columnSumUnit=[],$scope.parentFactor.rowSum=[],_ref=$scope.parentFactor.pairwise,i=_i=0,_len=_ref.length;_len>_i;i=++_i)for(row=_ref[i],j=_j=0,_len1=row.length;_len1>_j;j=++_j)column=row[j],column=$scope.parentFactor.pairwisefractions[i][j]=function(){try{return eval(column)}catch(_error){return e=_error,0}}(),void 0===$scope.parentFactor.columnSum[j]&&($scope.parentFactor.columnSum[j]=0),$scope.parentFactor.columnSum[j]=$scope.parentFactor.columnSum[j]+parseFloat(column);for(_ref1=$scope.factors,_results=[],i=_k=0,_len2=_ref1.length;_len2>_k;i=++_k){for(v1=_ref1[i],void 0===$scope.parentFactor.rowSum[i]&&($scope.parentFactor.rowSum[i]=0),_ref2=$scope.factors,j=_l=0,_len3=_ref2.length;_len3>_l;j=++_l)v2=_ref2[j],void 0===$scope.parentFactor.columnSumUnit[j]&&($scope.parentFactor.columnSumUnit[j]=0),$scope.parentFactor.columnSumUnit[j]=$scope.parentFactor.columnSumUnit[j]+$scope.parentFactor.pairwisefractions[i][j]/$scope.parentFactor.columnSum[j],$scope.parentFactor.rowSum[i]=$scope.parentFactor.rowSum[i]+$scope.parentFactor.pairwisefractions[i][j]/$scope.parentFactor.columnSum[j];_results.push($scope.parentFactor.rowSum[i]=$scope.parentFactor.rowSum[i]/$scope.factors.length)}return _results},$scope.addFactor=function(){var e,t,n,r,i,o;for(e=$scope.parentFactor.addChild()-1,$scope.parentFactor.pairwise.push([]),$scope.parentFactor.pairwisefractions.push([]),$scope.parentFactor.pair_wise_options[e]=[],$scope.parentFactor.pair_wise_options_fractions[e]=[],i=$scope.options,o=[],n=0,r=i.length;r>n;n++)t=i[n],$scope.parentFactor.pair_wise_options[e].push([]),o.push($scope.parentFactor.pair_wise_options_fractions[e].push([]));return o},$scope.$watch("parentFactor.pair_wise_options",function(){return pair_wise_optionsChange()},!0),pair_wise_optionsChange=function(){var column,e,factor,i,j,k,row,v1,v2,_i,_j,_k,_len,_len1,_len2,_ref,_ref1,_results;for(_ref=$scope.factors,_results=[],k=_i=0,_len=_ref.length;_len>_i;k=++_i){for(factor=_ref[k],$scope.parentFactor.columnSumOptions[k]=[],$scope.parentFactor.columnSumUnitOptions[k]=[],$scope.parentFactor.rowSumOptions[k]=[],_ref1=$scope.parentFactor.pair_wise_options[k],i=_j=0,_len1=_ref1.length;_len1>_j;i=++_j)for(row=_ref1[i],j=_k=0,_len2=row.length;_len2>_k;j=++_k)column=row[j],column=$scope.parentFactor.pair_wise_options_fractions[k][i][j]=function(){try{return eval(column)}catch(_error){return e=_error,0}}(),void 0===$scope.parentFactor.columnSumOptions[k][j]&&($scope.parentFactor.columnSumOptions[k][j]=0),$scope.parentFactor.columnSumOptions[k][j]=$scope.parentFactor.columnSumOptions[k][j]+parseFloat(column);_results.push(function(){var e,t,n,r,o,a,s;for(o=$scope.options,s=[],i=e=0,t=o.length;t>e;i=++e){for(v1=o[i],void 0===$scope.parentFactor.rowSumOptions[k][i]&&($scope.parentFactor.rowSumOptions[k][i]=0),a=$scope.options,j=r=0,n=a.length;n>r;j=++r)v2=a[j],void 0===$scope.parentFactor.columnSumUnitOptions[k][j]&&($scope.parentFactor.columnSumUnitOptions[k][j]=0),$scope.parentFactor.columnSumUnitOptions[k][j]=$scope.parentFactor.columnSumUnitOptions[k][j]+$scope.parentFactor.pair_wise_options_fractions[k][i][j]/$scope.parentFactor.columnSumOptions[k][j],$scope.parentFactor.rowSumOptions[k][i]=$scope.parentFactor.rowSumOptions[k][i]+$scope.parentFactor.pair_wise_options_fractions[k][i][j]/$scope.parentFactor.columnSumOptions[k][j];s.push($scope.parentFactor.rowSumOptions[k][i]=$scope.parentFactor.rowSumOptions[k][i]/$scope.options.length)}return s}())}return _results},$scope.$watch("options",function(){var e,t,n,r,i,o,a;for(o=$scope.factors,a=[],t=r=0,i=o.length;i>r;t=++r)e=o[t],a.push(function(){var e,r,i,o;for(i=$scope.options,o=[],e=0,r=i.length;r>e;e++)n=i[e],$scope.parentFactor.pair_wise_options[t].push([]),o.push($scope.parentFactor.pair_wise_options_fractions[t].push([]));return o}());return a},!0),$scope.addOption=function(){return $scope.options.push({name:"New Option",description:""})},$scope.$watch("parentFactor.rowSumOptions",function(){var e,t,n,r,i,o,a,s;for($scope.parentFactor.optionsScore=[],a=$scope.factors,s=[],n=i=0,o=a.length;o>i;n=++i)e=a[n],s.push(function(){var e,i,o,a;for(o=$scope.options,a=[],t=e=0,i=o.length;i>e;t=++e)r=o[t],void 0===$scope.parentFactor.optionsScore[t]&&($scope.parentFactor.optionsScore[t]={option:r,score:0}),a.push($scope.parentFactor.optionsScore[t].score=$scope.parentFactor.optionsScore[t].score+$scope.parentFactor.rowSum[n]*$scope.parentFactor.rowSumOptions[n][t]);return a}());return s},!0)}]),Controllers.controller("HomeCtrl",["$scope","$rootScope","Factor",function(e,t,n){return t.pageTitle="Analytic Hierarchy Process",t.show_process=!1,e.rootFactor=new n,e.rootFactor.name="General",e.rootFactor.addChild(),e.options=[{description:"",name:"Sample Option"}],e.saveFile=function(){var t,n,r,i;return t={factors:e.rootFactor.getTree(),options:e.options},n=$.base64.btoa(JSON.stringify(t)),i="data:application/octet;filename=AHP.json,"+n,r=window.open(i,"AHP.json")},e.handleFileSelect=function(t){var r;return e.selectedFile=t.files[0],null!=e.selectedFile?(r=new FileReader,r.onload=function(){return function(t){var r;return r=JSON.parse($.base64.atob(t.target.result)),e.$apply(function(){return e.rootFactor=new n,e.options=r.options,e.rootFactor.setTree(r.factors)})}}(e.selectedFile),r.readAsText(e.selectedFile),$(t).replaceAll($(t).clone())):alert("Invalid file")},e.loadData=function(){}}]),angular.module("app.directives",["app.services"]).directive("appVersion",["version",function(e){return function(t,n){return n.text(e)}}]).directive("clicksTo",function(){return function(e,t,n){return $(t).on("click",function(e){return e.preventDefault(),$(t).parent().find(n.clicksTo).click()})}}).directive("factors",function(){return{restrict:"E",scope:{factors:"=childs",options:"=options",parentFactor:"=parentFactor",level:"=level"},transclude:!0,controller:"FactorsCtrl",templateUrl:"/partials/factors.html",replace:!0}}),angular.module("app.filters",[]).filter("interpolate",["version",function(e){return function(t){return String(t).replace(/\%VERSION\%/gm,e)}}]),angular.module("app.models",[]).factory("Factor",function(){var e;return e=function(){function e(e){this.parent=e||!1,this.meta="",this.name="New Factor",this.pairwise=[[]],this.pairwisefractions=[[]],this.columnSum=[],this.columnSumUnit=[],this.rowSum=[],this.pair_wise_options=[[[]]],this.pair_wise_options_fractions=[[[]]],this.columnSumOptions=[[]],this.columnSumUnitOptions=[[]],this.rowSumOptions=[[]],this.optionsScore=[],this.childs=[]}return e.prototype.getTree=function(){var e,t,n,r,i;for(t=[],i=this.childs,n=0,r=i.length;r>n;n++)e=i[n],t.push(e.getTree());return{name:this.name,meta:this.meta,pairwise:this.pairwise,pair_wise_options:this.pair_wise_options,childs:t}},e.prototype.setTree=function(e){var t,n,r,i,o,a;for(this.name=e.name,this.meta=e.meta,this.pairwise=e.pairwise,this.pairwisefractions=angular.copy(e.pairwise),this.pair_wise_options=e.pair_wise_options,this.pair_wise_options_fractions=angular.copy(e.pair_wise_options),o=e.childs,a=[],r=0,i=o.length;i>r;r++)t=o[r],n=this.addChild()-1,a.push(this.childs[n].setTree(t));return a},e.prototype.getChilds=function(){return this.childs},e.prototype.getChild=function(e){return this.childs[e]||!1},e.prototype.addChild=function(){return this.childs.push(new e(this))},e.prototype.removeChild=function(e){return this.pairwise.splice(e,1),this.pairwisefractions.splice(e,1),this.pair_wise_options.splice(e,1),this.pair_wise_options_fractions.splice(e,1),this.childs.splice(e,1)},e.prototype.hasChilds=function(){return!!this.childs.length},e.prototype.hasParent=function(){return!!parent||!1},e.prototype.getOptionsScore=function(e){var t,n,r,i,o,a;if(r=0,n=!0,this.hasChilds())for(a=this.childs,i=0,o=a.length;o>i;i++)t=a[i],t.hasChilds()&&(n=!1,r+=t.getOptionsScore(e));return n&&(r=void 0===this.optionsScore[e]||isNaN(this.optionsScore[e].score)?0:this.optionsScore[e].score,this.parent&&void 0!==this.parent.rowSum[this.parent.childs.indexOf(this)]&&!isNaN(this.parent.rowSum[this.parent.childs.indexOf(this)])&&0!==this.parent.rowSum[this.parent.childs.indexOf(this)]&&(r*=this.parent.rowSum[this.parent.childs.indexOf(this)])),r},e}()}),angular.module("app.services",[]).factory("version",function(){return"0.1"});
-//@ sourceMappingURL=app.js.map
+'use strict';
+var App;
+
+App = angular.module('app', ['ngCookies', 'ngResource', 'ngRoute', 'app.controllers', 'app.directives', 'app.models', 'googlechart.directives', 'app.filters', 'app.services', 'partials', 'ui.bootstrap']);
+
+App.config([
+  '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider, config) {
+    $routeProvider.when('/home', {
+      templateUrl: '/partials/home.html'
+    }).otherwise({
+      redirectTo: '/home'
+    });
+    return $locationProvider.html5Mode(false);
+  }
+]);
+;'use strict';
+
+/* Controllers */
+var Controllers;
+
+Controllers = angular.module('app.controllers', []).controller('AppCtrl', [
+  '$scope', '$location', '$resource', '$rootScope', function($scope, $location, $resource, $rootScope) {
+    $scope.$location = $location;
+    $scope.$watch('$location.path()', function(path) {
+      return $scope.activeNavId = path || '/';
+    });
+    return $scope.getClass = function(id) {
+      if ($scope.activeNavId.substring(0, id.length) === id) {
+        return 'active';
+      } else {
+        return '';
+      }
+    };
+  }
+]);
+;var FactorController;
+
+FactorController = (function() {
+  function FactorController($scope, $rootScope, Factor) {
+    var pair_wise_optionsChange, pairwiseChange;
+    $scope.show_process = $rootScope.show_process;
+    $scope.fractions = {
+      "9": 9,
+      "7": 7,
+      "5": 5,
+      "3": 3,
+      "1": 1,
+      "1/3": 1 / 3,
+      "1/5": 1 / 5,
+      "1/7": 1 / 7,
+      "1/9": 1 / 9
+    };
+    $scope.$watch('parentFactor.pairwise', function() {
+      return pairwiseChange();
+    }, true);
+    pairwiseChange = function() {
+      var column, e, i, j, l, len, len1, len2, len3, m, n, o, ref, ref1, ref2, results, row, v1, v2;
+      $scope.parentFactor.columnSum = [];
+      $scope.parentFactor.columnSumUnit = [];
+      $scope.parentFactor.rowSum = [];
+      ref = $scope.parentFactor.pairwise;
+      for (i = l = 0, len = ref.length; l < len; i = ++l) {
+        row = ref[i];
+        for (j = m = 0, len1 = row.length; m < len1; j = ++m) {
+          column = row[j];
+          if (i < j) {
+            $scope.parentFactor.pairwise[j][i] = ((function() {
+              var error;
+              try {
+                return 1 / eval(column);
+              } catch (error) {
+                e = error;
+                return 0;
+              }
+            })());
+          }
+          column = $scope.parentFactor.pairwisefractions[i][j] = ((function() {
+            var error;
+            try {
+              return eval(column);
+            } catch (error) {
+              e = error;
+              return 0;
+            }
+          })());
+          if ($scope.parentFactor.columnSum[j] === void 0) {
+            $scope.parentFactor.columnSum[j] = 0;
+          }
+          $scope.parentFactor.columnSum[j] = $scope.parentFactor.columnSum[j] + parseFloat(column);
+        }
+      }
+      ref1 = $scope.factors;
+      results = [];
+      for (i = n = 0, len2 = ref1.length; n < len2; i = ++n) {
+        v1 = ref1[i];
+        if ($scope.parentFactor.rowSum[i] === void 0) {
+          $scope.parentFactor.rowSum[i] = 0;
+        }
+        ref2 = $scope.factors;
+        for (j = o = 0, len3 = ref2.length; o < len3; j = ++o) {
+          v2 = ref2[j];
+          if ($scope.parentFactor.columnSumUnit[j] === void 0) {
+            $scope.parentFactor.columnSumUnit[j] = 0;
+          }
+          $scope.parentFactor.columnSumUnit[j] = $scope.parentFactor.columnSumUnit[j] + $scope.parentFactor.pairwisefractions[i][j] / $scope.parentFactor.columnSum[j];
+          $scope.parentFactor.rowSum[i] = $scope.parentFactor.rowSum[i] + $scope.parentFactor.pairwisefractions[i][j] / $scope.parentFactor.columnSum[j];
+        }
+        results.push($scope.parentFactor.rowSum[i] = $scope.parentFactor.rowSum[i] / $scope.factors.length);
+      }
+      return results;
+    };
+    $scope.addFactor = function() {
+      var i, j, l, len, option, ref, results;
+      i = $scope.parentFactor.addChild() - 1;
+      $scope.parentFactor.pairwise.push([]);
+      $scope.parentFactor.pairwise[i][i] = 1;
+      $scope.parentFactor.pairwisefractions.push([]);
+      $scope.parentFactor.pair_wise_options[i] = [];
+      $scope.parentFactor.pair_wise_options_fractions[i] = [];
+      ref = $scope.options;
+      results = [];
+      for (j = l = 0, len = ref.length; l < len; j = ++l) {
+        option = ref[j];
+        $scope.parentFactor.pair_wise_options[i].push([]);
+        $scope.parentFactor.pair_wise_options[i][j][j] = 1;
+        results.push($scope.parentFactor.pair_wise_options_fractions[i].push([]));
+      }
+      return results;
+    };
+    $scope.$watch('parentFactor.pair_wise_options', function() {
+      return pair_wise_optionsChange();
+    }, true);
+    pair_wise_optionsChange = function() {
+      var column, e, factor, i, j, k, l, len, len1, len2, m, n, ref, ref1, results, row, v1, v2;
+      ref = $scope.factors;
+      results = [];
+      for (k = l = 0, len = ref.length; l < len; k = ++l) {
+        factor = ref[k];
+        $scope.parentFactor.columnSumOptions[k] = [];
+        $scope.parentFactor.columnSumUnitOptions[k] = [];
+        $scope.parentFactor.rowSumOptions[k] = [];
+        ref1 = $scope.parentFactor.pair_wise_options[k];
+        for (i = m = 0, len1 = ref1.length; m < len1; i = ++m) {
+          row = ref1[i];
+          for (j = n = 0, len2 = row.length; n < len2; j = ++n) {
+            column = row[j];
+            if (i < j) {
+              $scope.parentFactor.pair_wise_options[k][j][i] = ((function() {
+                var error;
+                try {
+                  return 1 / eval(column);
+                } catch (error) {
+                  e = error;
+                  return 0;
+                }
+              })());
+            }
+            column = $scope.parentFactor.pair_wise_options_fractions[k][i][j] = ((function() {
+              var error;
+              try {
+                return eval(column);
+              } catch (error) {
+                e = error;
+                return 0;
+              }
+            })());
+            if ($scope.parentFactor.columnSumOptions[k][j] === void 0) {
+              $scope.parentFactor.columnSumOptions[k][j] = 0;
+            }
+            $scope.parentFactor.columnSumOptions[k][j] = $scope.parentFactor.columnSumOptions[k][j] + parseFloat(column);
+          }
+        }
+        results.push((function() {
+          var len3, len4, o, p, ref2, ref3, results1;
+          ref2 = $scope.options;
+          results1 = [];
+          for (i = o = 0, len3 = ref2.length; o < len3; i = ++o) {
+            v1 = ref2[i];
+            if ($scope.parentFactor.rowSumOptions[k][i] === void 0) {
+              $scope.parentFactor.rowSumOptions[k][i] = 0;
+            }
+            ref3 = $scope.options;
+            for (j = p = 0, len4 = ref3.length; p < len4; j = ++p) {
+              v2 = ref3[j];
+              if ($scope.parentFactor.columnSumUnitOptions[k][j] === void 0) {
+                $scope.parentFactor.columnSumUnitOptions[k][j] = 0;
+              }
+              $scope.parentFactor.columnSumUnitOptions[k][j] = $scope.parentFactor.columnSumUnitOptions[k][j] + $scope.parentFactor.pair_wise_options_fractions[k][i][j] / $scope.parentFactor.columnSumOptions[k][j];
+              $scope.parentFactor.rowSumOptions[k][i] = $scope.parentFactor.rowSumOptions[k][i] + $scope.parentFactor.pair_wise_options_fractions[k][i][j] / $scope.parentFactor.columnSumOptions[k][j];
+            }
+            results1.push($scope.parentFactor.rowSumOptions[k][i] = $scope.parentFactor.rowSumOptions[k][i] / $scope.options.length);
+          }
+          return results1;
+        })());
+      }
+      return results;
+    };
+    $scope.$watch('options', function(newValue, oldValue) {
+      var factor, i, j, l, len, option, ref, results;
+      ref = $scope.factors;
+      results = [];
+      for (i = l = 0, len = ref.length; l < len; i = ++l) {
+        factor = ref[i];
+        results.push((function() {
+          var len1, m, ref1, results1;
+          ref1 = $scope.options;
+          results1 = [];
+          for (j = m = 0, len1 = ref1.length; m < len1; j = ++m) {
+            option = ref1[j];
+            $scope.parentFactor.pair_wise_options[i].push([]);
+            $scope.parentFactor.pair_wise_options[i][j][j] = 1;
+            results1.push($scope.parentFactor.pair_wise_options_fractions[i].push([]));
+          }
+          return results1;
+        })());
+      }
+      return results;
+    }, true);
+    $scope.addOption = function() {
+      return $scope.options.push({
+        name: 'New Option',
+        description: ''
+      });
+    };
+    $scope.$watch('parentFactor.rowSumOptions', function() {
+      var factor, i, k, l, len, option, ref, results;
+      $scope.parentFactor.optionsScore = [];
+      ref = $scope.factors;
+      results = [];
+      for (k = l = 0, len = ref.length; l < len; k = ++l) {
+        factor = ref[k];
+        results.push((function() {
+          var len1, m, ref1, results1;
+          ref1 = $scope.options;
+          results1 = [];
+          for (i = m = 0, len1 = ref1.length; m < len1; i = ++m) {
+            option = ref1[i];
+            if ($scope.parentFactor.optionsScore[i] === void 0) {
+              $scope.parentFactor.optionsScore[i] = {
+                option: option,
+                score: 0
+              };
+            }
+            results1.push($scope.parentFactor.optionsScore[i].score = $scope.parentFactor.optionsScore[i].score + ($scope.parentFactor.rowSum[k] * $scope.parentFactor.rowSumOptions[k][i]));
+          }
+          return results1;
+        })());
+      }
+      return results;
+    }, true);
+  }
+
+  return FactorController;
+
+})();
+
+FactorController.$inject = ['$scope', '$rootScope', 'Factor'];
+
+Controllers.controller('FactorsCtrl', FactorController);
+;Controllers.controller('HomeCtrl', [
+  '$scope', '$rootScope', 'Factor', function($scope, $rootScope, Factor) {
+    $rootScope.pageTitle = "Analytic Hierarchy Process";
+    $rootScope.show_process = false;
+    $scope.rootFactor = new Factor();
+    $scope.rootFactor.name = 'General';
+    $scope.rootFactor.addChild();
+    $scope.options = [
+      {
+        description: '',
+        name: 'Sample Option'
+      }
+    ];
+    $scope.saveFile = function() {
+      var data, downloadData, newWindow, uriContent;
+      data = {
+        factors: $scope.rootFactor.getTree(),
+        options: $scope.options
+      };
+      downloadData = $.base64.btoa(JSON.stringify(data));
+      uriContent = "data:application/octet;filename=AHP.json," + downloadData;
+      return newWindow = window.open(uriContent, 'AHP.json');
+    };
+    $scope.handleFileSelect = function(element) {
+      var reader;
+      $scope.selectedFile = element.files[0];
+      if ($scope.selectedFile != null) {
+        reader = new FileReader();
+        reader.onload = (function(file) {
+          return function(e) {
+            var data;
+            data = JSON.parse($.base64.atob(e.target.result));
+            return $scope.$apply(function() {
+              $scope.rootFactor = new Factor();
+              $scope.options = data.options;
+              return $scope.rootFactor.setTree(data.factors);
+            });
+          };
+        })($scope.selectedFile);
+        reader.readAsText($scope.selectedFile);
+        return $(element).replaceAll($(element).clone());
+      } else {
+        return alert('Invalid file');
+      }
+    };
+    return $scope.loadData = function(data) {};
+  }
+]);
+;'use strict';
+
+/* Directives */
+angular.module('app.directives', ['app.services']).directive('appVersion', [
+  'version', function(version) {
+    return function(scope, elm) {
+      return elm.text(version);
+    };
+  }
+]).directive('clicksTo', function() {
+  return function(scope, element, attrs) {
+    return $(element).on('click', function(e) {
+      e.preventDefault();
+      return $(element).parent().find(attrs.clicksTo).click();
+    });
+  };
+}).directive('factors', function() {
+  return {
+    restrict: 'C',
+    scope: {
+      factors: '=childs',
+      options: '=options',
+      parentFactor: '=parentFactor',
+      level: '=level'
+    },
+    transclude: true,
+    controller: 'FactorsCtrl',
+    templateUrl: '/partials/factors.html',
+    replace: true
+  };
+}).directive('factorsTable', function() {
+  return {
+    restrict: 'C',
+    templateUrl: '/partials/factors_table.html',
+    replace: true
+  };
+}).directive('factorOptions', function() {
+  return {
+    restrict: 'C',
+    templateUrl: '/partials/options.html',
+    replace: true
+  };
+});
+;'use strict';
+
+/* Filters */
+angular.module('app.filters', []).filter('interpolate', [
+  'version', function(version) {
+    return function(text) {
+      return String(text).replace(/\%VERSION\%/mg, version);
+    };
+  }
+]);
+;angular.module('app.models', []).factory('Factor', function() {
+  var Factor;
+  return Factor = (function() {
+    function Factor(parent) {
+      this.parent = parent || false;
+      this.meta = '';
+      this.name = 'New Factor';
+      this.pairwise = [[]];
+      this.pairwise[0][0] = 1;
+      this.pairwisefractions = [[]];
+      this.columnSum = [];
+      this.columnSumUnit = [];
+      this.rowSum = [];
+      this.pair_wise_options = [[[]]];
+      this.pair_wise_options[0][0][0] = 1;
+      this.pair_wise_options_fractions = [[[]]];
+      this.columnSumOptions = [[]];
+      this.columnSumUnitOptions = [[]];
+      this.rowSumOptions = [[]];
+      this.optionsScore = [];
+      this.childs = [];
+    }
+
+    Factor.prototype.getTree = function() {
+      var child, childs, j, len, ref;
+      childs = [];
+      ref = this.childs;
+      for (j = 0, len = ref.length; j < len; j++) {
+        child = ref[j];
+        childs.push(child.getTree());
+      }
+      return {
+        name: this.name,
+        meta: this.meta,
+        pairwise: this.pairwise,
+        pair_wise_options: this.pair_wise_options,
+        childs: childs
+      };
+    };
+
+    Factor.prototype.setTree = function(data) {
+      var child, i, j, len, ref, results;
+      this.name = data.name;
+      this.meta = data.meta;
+      this.pairwise = data.pairwise;
+      this.pairwisefractions = angular.copy(data.pairwise);
+      this.pair_wise_options = data.pair_wise_options;
+      this.pair_wise_options_fractions = angular.copy(data.pair_wise_options);
+      ref = data.childs;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        child = ref[j];
+        i = this.addChild() - 1;
+        results.push(this.childs[i].setTree(child));
+      }
+      return results;
+    };
+
+    Factor.prototype.getChilds = function() {
+      return this.childs;
+    };
+
+    Factor.prototype.getChild = function(index) {
+      return this.childs[index] || false;
+    };
+
+    Factor.prototype.addChild = function() {
+      return this.childs.push(new Factor(this));
+    };
+
+    Factor.prototype.removeChild = function(index) {
+      this.pairwise.splice(index, 1);
+      this.pairwisefractions.splice(index, 1);
+      this.pair_wise_options.splice(index, 1);
+      this.pair_wise_options_fractions.splice(index, 1);
+      return this.childs.splice(index, 1);
+    };
+
+    Factor.prototype.hasChilds = function() {
+      return !!this.childs.length;
+    };
+
+    Factor.prototype.hasParent = function() {
+      return !!parent || false;
+    };
+
+    Factor.prototype.getOptionsScore = function(index) {
+      var child, j, len, notChilded, ref, result;
+      result = 0;
+      notChilded = true;
+      if (this.hasChilds()) {
+        ref = this.childs;
+        for (j = 0, len = ref.length; j < len; j++) {
+          child = ref[j];
+          if (child.hasChilds()) {
+            notChilded = false;
+            result += child.getOptionsScore(index);
+          }
+        }
+      }
+      if (notChilded) {
+        result = this.optionsScore[index] !== void 0 && !isNaN(this.optionsScore[index].score) ? this.optionsScore[index].score : 0;
+        if (!!this.parent && this.parent.rowSum[this.parent.childs.indexOf(this)] !== void 0 && !isNaN(this.parent.rowSum[this.parent.childs.indexOf(this)]) && this.parent.rowSum[this.parent.childs.indexOf(this)] !== 0) {
+          result = result * this.parent.rowSum[this.parent.childs.indexOf(this)];
+        }
+      }
+      return result;
+    };
+
+    return Factor;
+
+  })();
+});
+;'use strict';
+
+/* Sevices */
+angular.module('app.services', []).factory('version', function() {
+  return "0.1";
+});
+;
+//# sourceMappingURL=app.js.map
