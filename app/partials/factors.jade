@@ -24,28 +24,28 @@ div
 
   div.factors-table
 
-  h2 Resultados de los Factores
-  .row-fluid
-    table.table.table-bordered.table-striped
-      tr
-        td
-        th(ng-repeat='factor in factors', ng-bind="factor.name")
-        th Totales
-      tr
-        td
-        th(ng-repeat='factor in factors', ng-bind="parentFactor.rowSum[$index]|number:2")
-        td
-      tr(ng-repeat='option in options')
-        th(ng-bind="option.name")
-        td(ng-repeat='factor in factors', ng-bind="parentFactor.rowSumOptions[$index][$parent.$index] | number:2")
-        th(ng-bind="(parentFactor.getOptionsScore($index)*100 | number:2) + '%'")
-
+  h2 Seleccione ahora como son las opciones frente a cada factor de decisión.
   div(ng-repeat="factor in factors")
-    h3 Comparación de proyectos/opciones por el factor 
-      b(ng-bind="factor.name")
     div.factor-options
 
-  h3 Resumen
+  .process(ng-show="$root.show_process")
+    h2 Resultados de los Factores
+    .row-fluid
+      table.table.table-bordered.table-striped
+        tr
+          td
+          th(ng-repeat='factor in factors', ng-bind="factor.name")
+          th Totales
+        tr
+          td
+          th(ng-repeat='factor in factors', ng-bind="parentFactor.rowSum[$index]|number:2")
+          td
+        tr(ng-repeat='option in options')
+          th(ng-bind="option.name")
+          td(ng-repeat='factor in factors', ng-bind="parentFactor.rowSumOptions[$index][$parent.$index] | number:2")
+          th(ng-bind="(parentFactor.getOptionsScore($index)*100 | number:2) + '%'")
+
+  h2 Resumen
 
   p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{parentFactor.meta}}, y el score fué el siguiente:
   ol

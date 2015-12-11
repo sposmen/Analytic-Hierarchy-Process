@@ -2,7 +2,16 @@ class FactorController
   constructor: ($scope, $rootScope, Factor) ->
     $scope.show_process = $rootScope.show_process
 
-    $scope.fractions =["9","7","5","3","1","1/3","1/5","1/7", "1/9"]
+    $scope.fractions =
+      "9":9
+      "7":7
+      "5":5
+      "3":3
+      "1":1
+      "1/3": 1/3
+      "1/5":1/5
+      "1/7":1/7
+      "1/9":1/9
 
     $scope.$watch 'parentFactor.pairwise', ->
       pairwiseChange()
@@ -104,7 +113,6 @@ class FactorController
             score: 0
           } if $scope.parentFactor.optionsScore[i] is undefined
           $scope.parentFactor.optionsScore[i].score = $scope.parentFactor.optionsScore[i].score + ($scope.parentFactor.rowSum[k] * $scope.parentFactor.rowSumOptions[k][i])
-
     , true
 
 

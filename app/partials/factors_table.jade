@@ -24,7 +24,7 @@ div
       tr(ng-repeat='factorColumn in factors', ng-show="$index > $parent.$index")
         td(ng-bind="factorRow.name + ' sobre ' + factorColumn.name ")
         td
-          select(ng-options="fraction for fraction in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
+          select(ng-options="value as fraction for (fraction, value) in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
 
   .process(ng-show="$root.show_process")
     h3 Comparación por pares
@@ -73,6 +73,7 @@ div
           td
           td(ng-show="parentFactor.parent")
 
-  accordion
-    accordion-group(ng-repeat="factor in factors", heading="{{level + 1 }} Nivel de Subfactores para {{factor.name}}")
-      factors(childs="factor.childs", options="options", parent-factor="factor", level="level+1")
+  // TODO: Pending reactivate sub-factors
+  //accordion
+  //  accordion-group(ng-repeat="factor in factors", heading="{{level + 1 }} Nivel de Subfactores para {{factor.name}}")
+  //    div.factors(childs="factor.childs", options="options", parent-factor="factor", level="level+1")

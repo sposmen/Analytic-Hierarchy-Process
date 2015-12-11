@@ -1,16 +1,27 @@
 div
-  h3 Comparación por pares
-  table.table.table-bordered.table-striped
+
+  table.table
     tr
-      td
-      th(ng-repeat='factorColumn in options', ng-bind="factorColumn.name")
-    tr(ng-repeat='factorRow in options')
-      td(ng-bind="factorRow.name")
-      td(ng-repeat='factorColumn in options')
-        input(ng-show='$parent.$index < $index',type='text', ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
-        span(ng-show='$parent.$index >= $index', ng-bind='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index] | number:2 ')
+      th Compare sobre
+        span(ng-bind="' ' + factor.name")
+      th Valor
+    tbody(ng-repeat='factorRow in options')
+      tr(ng-repeat='factorColumn in options', ng-show="$index > $parent.$index")
+        td(ng-bind="factorRow.name + ' sobre ' + factorColumn.name ")
+        td
+          select(ng-options="value as fraction for (fraction, value) in fractions", ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
 
   .process(ng-show="$root.show_process")
+    h3 Comparación por pares
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factorColumn in options', ng-bind="factorColumn.name")
+      tr(ng-repeat='factorRow in options')
+        td(ng-bind="factorRow.name")
+        td(ng-repeat='factorColumn in options')
+          span(ng-bind='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index] | number:2 ')
+
     h3 Proceso de Normalización de las Opciones
 
     h4 Fracciones
