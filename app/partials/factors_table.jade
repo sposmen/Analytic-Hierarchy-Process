@@ -15,8 +15,7 @@ div
           input(type='text',ng-model='factor.name')
 
 
-  h3 Comparación por pares
-  span Seleccione que importancia tiene un factor de decisión sobre otro
+  h3 Seleccione que importancia tiene un factor de decisión sobre otro
   table.table
     tr
       th Comparador
@@ -27,17 +26,18 @@ div
         td
           select(ng-options="fraction for fraction in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
 
-  table.table.table-bordered.table-striped
-    tr
-      td
-      th(ng-repeat='factorColumn in factors', ng-bind="factorColumn.name")
-    tr(ng-repeat='factorRow in factors')
-      td(ng-bind="factorRow.name")
-      td(ng-repeat='factorColumn in factors')
-        input(ng-show='$parent.$index < $index', type='text', ng-model='parentFactor.pairwise[$parent.$index][$index]')
-        span(ng-show='$parent.$index >= $index', ng-bind='parentFactor.pairwise[$parent.$index][$index] | number:2 ')
-
   .process(ng-show="$root.show_process")
+    h3 Comparación por pares
+
+    table.table.table-bordered.table-striped
+      tr
+        td
+        th(ng-repeat='factorColumn in factors', ng-bind="factorColumn.name")
+      tr(ng-repeat='factorRow in factors')
+        td(ng-bind="factorRow.name")
+        td(ng-repeat='factorColumn in factors')
+          span(ng-bind='parentFactor.pairwise[$parent.$index][$index] | number:2 ')
+
     h3 Proceso de Normalización
 
     h4 Fracciones
