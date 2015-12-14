@@ -161,28 +161,6 @@ angular.module('partials', [])
 '</div>',''].join("\n"));
 }])
 .run(['$templateCache', function($templateCache) {
-  return $templateCache.put('/partials/home.html', [
-'',
-'<div ng-controller="HomeCtrl">',
-'  <div class="config pull-right">',
-'    <div class="form-inline">',
-'      <label class="checkbox">',
-'        <input type="checkbox" ng-model="$root.show_process"> Mostrar Proceso',
-'      </label>',
-'    </div>',
-'  </div>',
-'  <div childs="rootFactor.childs" options="options" parent-factor="rootFactor" level="0" class="factors"></div>',
-'  <h3>Resumen General</h3>',
-'  <p>Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:</p>',
-'  <ol>',
-'    <li ng-repeat="result in optionsScore | orderBy:\'score\':\'true\'"><b>{{result.option.name}}</b>, Score: {{result.score*100|number:2}}%</li>',
-'  </ol>',
-'  <button clicks-to=".file" class="btn import-cvs">Cargar</button>',
-'  <input type="file" onchange="angular.element(this).scope().handleFileSelect(this)" ng-show="false" class="file">',
-'  <button ng-click="saveFile()" class="btn">Guardar</button>',
-'</div>',''].join("\n"));
-}])
-.run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/options.html', [
 '',
 '<div>',
@@ -254,6 +232,27 @@ angular.module('partials', [])
 '      </tr>',
 '    </table>',
 '  </div>',
+'</div>',''].join("\n"));
+}])
+.run(['$templateCache', function($templateCache) {
+  return $templateCache.put('/partials/home.html', [
+'',
+'<div ng-controller="HomeCtrl">',
+'  <div class="config pull-right">',
+'    <div class="form-inline">',
+'      <label class="checkbox">',
+'        <input type="checkbox" ng-model="$root.show_process"> Mostrar Proceso',
+'      </label>',
+'    </div>',
+'  </div>',
+'  <div childs="rootFactor.childs" options="options" parent-factor="rootFactor" level="0" class="factors"></div>',
+'  <h3>Resumen General</h3>',
+'  <p>Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:</p>',
+'  <ol>',
+'    <li ng-repeat="result in optionsScore | orderBy:\'score\':\'true\'"><b>{{result.option.name}}</b>, Score: {{result.score*100|number:2}}%</li>',
+'  </ol>',
+'  <button clicks-to=".file" class="btn btn-default import-cvs">Cargar</button>',
+'  <input type="file" accept=".ahp" onchange="angular.element(this).scope().handleFileSelect(this)" ng-show="false" class="file"><a ng-click="saveFile($event)" class="btn btn-primary">Guardar</a>',
 '</div>',''].join("\n"));
 }])
 .run(['$templateCache', function($templateCache) {
