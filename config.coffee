@@ -33,4 +33,4 @@ exports.config =
       locals: {}
 
   # Enable or disable minifying of result js / css files.
-  # minify: true
+  minify: true

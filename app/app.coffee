@@ -29,5 +29,5 @@ App.config([
     .otherwise({redirectTo: '/home'})
 
   # Without server side support html5 must be disabled.
-  $locationProvider.html5Mode(true)
+  $locationProvider.html5Mode(false)
 ])
