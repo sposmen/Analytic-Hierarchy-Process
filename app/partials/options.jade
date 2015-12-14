@@ -1,15 +1,18 @@
 div
 
   table.table
-    tr
-      th Compare sobre
-        span(ng-bind="' ' + factor.name")
-      th Valor
+    thead
+      tr
+        th.text-right Proyecto/Opción
+        th.text-center Comparación sobre
+          span(ng-bind="' ' + factor.name")
+        th Proyecto/Opción
     tbody(ng-repeat='factorRow in options')
       tr(ng-repeat='factorColumn in options', ng-show="$index > $parent.$index")
-        td(ng-bind="factorRow.name + ' sobre ' + factorColumn.name ")
-        td
-          select.form-control(ng-options="value as fraction for (fraction, value) in fractions", ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
+        td.text-right(ng-bind="factorRow.name")
+        td.text-center
+          select.options-centered.form-control(ng-options="value as fraction for (fraction, value) in fractions", ng-model='parentFactor.pair_wise_options[$parent.$parent.$index][$parent.$index][$index]')
+        td(ng-bind="factorColumn.name")
 
   .process(ng-show="$root.show_process")
     h3 Comparación por pares

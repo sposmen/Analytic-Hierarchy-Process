@@ -19,26 +19,15 @@ div
   h4 Esto se realiza comparándolos uno a uno.
   table.table
     tr
-      th Comparador
-      th Valor
+      th.text-right Factor
+      th.text-center Comparación
+      th Factor
     tbody(ng-repeat='factorRow in factors')
       tr(ng-repeat='factorColumn in factors', ng-show="$index > $parent.$index")
-        td(ng-bind="factorRow.name + ' sobre ' + factorColumn.name ")
-        td
-          select.form-control(ng-options="value as fraction for (fraction, value) in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
-  //table.table
-  //  tr
-  //    th Factor
-  //    th.text-center Seleccione que tan importante es un factor
-  //      br frente al otro
-  //    th Factor
-  //  tbody(ng-repeat='factorRow in factors')
-  //    tr(ng-repeat='factorColumn in factors', ng-show="$index > $parent.$index")
-  //      td(ng-bind="factorRow.name")
-  //      td
-  //        div
-  //          | Slider
-  //      td(ng-bind="factorColumn.name")
+        td.text-right(ng-bind="factorRow.name")
+        td.text-center
+          select.options-centered.form-control(ng-options="value as fraction for (fraction, value) in fractions", ng-model='parentFactor.pairwise[$parent.$index][$index]')
+        td(ng-bind="factorColumn.name")
 
   .process(ng-show="$root.show_process")
     h3 Comparación por pares
