@@ -63,7 +63,7 @@ angular.module('app.models', [])
       !!@childs.length
       
     hasParent:->
-      !!parent || false
+      !!@parent
     
     getOptionsScore:(index)->
       result = 0

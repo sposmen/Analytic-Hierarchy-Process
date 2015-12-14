@@ -47,7 +47,9 @@ div
 
   h3 Resumen
 
-  p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{parentFactor.meta}}, y el score fué el siguiente:
+  p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta
+    span(ng-bind="parentFactor.meta")
+    |  y el score fué el siguiente:
   ol
     li(ng-repeat="option in options")
       b(ng-bind="option.name")

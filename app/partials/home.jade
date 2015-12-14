@@ -8,17 +8,18 @@ div(ng-controller='HomeCtrl')
   
   div.factors(childs="rootFactor.childs", options="options", parent-factor="rootFactor", level="0")
   
-  h3 Resumen General
-  
-  p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:
-  ol
-    li(ng-repeat="result in optionsScore | orderBy:'score':'true'")
-      b {{result.option.name}}
-      | , Score: {{result.score*100|number:2}}%
+  //h3 Resumen General
+  //
+  //p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:
+  //ol
+  //  li(ng-repeat="result in optionsScore | orderBy:score:reverse")
+  //    b(ng-bind="result.option.name")
+  //    | , Score:
+  //    span(ng-bind="(parentFactor.getOptionsScore($index)*100|number:2) + '%'")
       
-  button.btn.import-cvs(clicks-to=".file") Cargar
-  input.file(type="file", onchange="angular.element(this).scope().handleFileSelect(this)", ng-show="false")
-  button.btn(ng-click='saveFile()') Guardar
+  button.btn.btn-default.import-cvs(clicks-to=".file") Cargar
+  input.file(type="file", accept=".ahp", onchange="angular.element(this).scope().handleFileSelect(this)", ng-show="false")
+  a.btn.btn-primary(ng-click='saveFile($event)') Guardar
 
     
     
