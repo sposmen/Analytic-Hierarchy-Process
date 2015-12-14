@@ -6746,6 +6746,10 @@ bootstrap, so they may override it's behavior.
 .accordion-heading a:hover {
   text-decoration: none;
 }
+select.options-centered.form-control {
+  width: inherit;
+  display: inherit;
+}
 
 
 /*# sourceMappingURL=app.css.map*/
