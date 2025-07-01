@@ -34,3 +34,5 @@ exports.config =
 
   # Enable or disable minifying of result js / css files.
   minify: true
+  npm:
+    enabled: false
