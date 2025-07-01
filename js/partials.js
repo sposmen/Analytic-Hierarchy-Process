@@ -55,7 +55,7 @@ angular.module('partials', [])
 '    </div>',
 '  </div>',
 '  <h3>Resumen</h3>',
-'  <p>Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{parentFactor.meta}}, y el score fué el siguiente:</p>',
+'  <p>Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta<span ng-bind="parentFactor.meta"></span> y el score fué el siguiente:</p>',
 '  <ol>',
 '    <li ng-repeat="option in options"><b ng-bind="option.name"></b>, Score:<span ng-bind="(parentFactor.getOptionsScore($index)*100|number:2) + \'%\'"></span></li>',
 '  </ol>',
@@ -161,6 +161,14 @@ angular.module('partials', [])
 '</div>',''].join("\n"));
 }])
 .run(['$templateCache', function($templateCache) {
+  return $templateCache.put('/partials/nav.html', [
+'',
+'<ul class="nav navbar-nav">',
+'  <li ng-class="getClass(\'/home\')"><a ng-href="/home">Home</a></li>',
+'  <li><a href="http://en.wikipedia.org/wiki/Analytic_hierarchy_process" target="_blank">Wiki Reference</a></li>',
+'</ul>',''].join("\n"));
+}])
+.run(['$templateCache', function($templateCache) {
   return $templateCache.put('/partials/options.html', [
 '',
 '<div>',
@@ -246,20 +254,15 @@ angular.module('partials', [])
 '    </div>',
 '  </div>',
 '  <div childs="rootFactor.childs" options="options" parent-factor="rootFactor" level="0" class="factors"></div>',
-'  <h3>Resumen General</h3>',
-'  <p>Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:</p>',
-'  <ol>',
-'    <li ng-repeat="result in optionsScore | orderBy:\'score\':\'true\'"><b>{{result.option.name}}</b>, Score: {{result.score*100|number:2}}%</li>',
-'  </ol>',
+'  <!--h3 Resumen General-->',
+'  <!---->',
+'  <!--p Para el presente ejercicio se realizó el análisis por jerarquía de procesos para lograr la meta {{meta}} el score es el siguiente:-->',
+'  <!--ol-->',
+'  <!--  li(ng-repeat="result in optionsScore | orderBy:score:reverse")-->',
+'  <!--    b(ng-bind="result.option.name")-->',
+'  <!--    | , Score:-->',
+'  <!--    span(ng-bind="(parentFactor.getOptionsScore($index)*100|number:2) + \'%\'")-->',
 '  <button clicks-to=".file" class="btn btn-default import-cvs">Cargar</button>',
 '  <input type="file" accept=".ahp" onchange="angular.element(this).scope().handleFileSelect(this)" ng-show="false" class="file"><a ng-click="saveFile($event)" class="btn btn-primary">Guardar</a>',
 '</div>',''].join("\n"));
-}])
-.run(['$templateCache', function($templateCache) {
-  return $templateCache.put('/partials/nav.html', [
-'',
-'<ul class="nav navbar-nav">',
-'  <li ng-class="getClass(\'/home\')"><a ng-href="/home">Home</a></li>',
-'  <li><a href="http://en.wikipedia.org/wiki/Analytic_hierarchy_process" target="_blank">Wiki Reference</a></li>',
-'</ul>',''].join("\n"));
 }]);
